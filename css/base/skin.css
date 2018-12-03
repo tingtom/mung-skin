@@ -134,8 +134,8 @@ a:visited {
 
 a:hover {
     text-decoration: none; 
-    background-color:rgba(72, 84, 96,0.2);
-    border-radius:4px;
+    /* background-color:rgba(72, 84, 96,0.2);
+    border-radius:4px;*/
 }
 
 label {
@@ -148,11 +148,15 @@ input,textarea,select,button,.btn-primary {
     border-radius: 1px;
     font-family: inherit;
     font-weight: 400;
-    font-size: 100%;
     color: #333333;
     text-align: left;
     border-radius:4px;
 }
+
+button.close:hover {
+    background-color: transparent;
+}
+
 /*
 input[type=text], input[type=password], input[type="url"], textarea, select {
     padding: 1px;
@@ -519,7 +523,7 @@ button,
 input[type=button],
 input[type=submit],
 .btn-primary,
-.btn-primary:link {
+.btn-primary:link, .btn {
     background-color: #3498db;
     color: #fff;
     border-color: #3498db;
@@ -580,13 +584,13 @@ input[type=submit]:disabled,
 color:#ffa801;
 }
 
-.navbar-btn {
+/* .navbar-btn {
   background-color:#95afc0;
   color:white;
   padding:4px;
-  margin-right:8px;
+  margin-right: 15px;
   border:none;
-}
+} */
 
 
 
