@@ -104,3 +104,7 @@
 .StatusFilter select {
   min-width: 130px;
 }
+
+.consoleTable.table-condensed > tfoot > tr > td {
+    padding-top: 25px;
+}
