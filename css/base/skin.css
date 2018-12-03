@@ -226,7 +226,7 @@ ul.tabList li:hover {
 
 ul.tabList li.active {
     background-color: #ffffff;
-    border-bottom: #7f7fb2 dotted 1px;
+    /* border-bottom: #7f7fb2 dotted 1px; */
 }
 
 ul.tabList li.active a {
@@ -241,6 +241,7 @@ ul.tabList li.active a {
     margin: 4px auto;
     width: 100%;
     border-collapse: collapse;
+    border: #ccc solid 1px;
 }
 
 #content table.major tr.highlight {
@@ -440,6 +441,7 @@ th.table-th-sort-rev span.table-th-sort-span {
 #header h2 {
     left: 0;
     font-weight: 300;
+    margin-top: 10px;
 }
 
 #header h2.floating {
