@@ -659,7 +659,9 @@ li.search-choice {
 .gi-5x{font-size: 5em;}
 
 .filterBar {
-  margin-top:5px;
-  margin-bottom:5px;
+  margin-top: 5px;
 }
    
+.filterBar span + span {
+    margin-left: 5px;
+}
