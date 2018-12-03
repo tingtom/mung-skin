@@ -20,7 +20,7 @@ input[type="submit"] {
 
 form {
 	max-width: 450px;
-	margin: 15px auto;
+	/* margin: 15px auto; */
 	border: 1px solid #e7e7e7;
 	background-color: #fff;
 	box-shadow: 0 0 6px 0 rgba(0,0,0,0.08);
@@ -46,3 +46,13 @@ h1 {
 	margin-bottom: 15px;
 }
 
+.container {
+    height: calc(100vh - 50px);
+}
+
+.container form {
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    position: relative;
+}
