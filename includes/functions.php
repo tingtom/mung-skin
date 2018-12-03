@@ -249,7 +249,7 @@ function getNavBarHTML($reload = null) {
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-      <div class="navbar-brand"><a href="<?php echo ZM_HOME_URL?>" target="<?php echo ZM_WEB_TITLE ?>"><?php echo ZM_HOME_CONTENT ?></a></div>
+      <div class="navbar-brand"><a href="<?php echo ZM_HOME_URL?>" title="<?php echo ZM_WEB_TITLE ?>"><?php echo ZM_HOME_CONTENT ?></a></div>
 		</div>
 
 		<div class="collapse navbar-collapse" id="main-header-nav">
