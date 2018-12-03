@@ -339,7 +339,7 @@ for( $monitor_i = 0; $monitor_i < count($displayMonitors); $monitor_i += 1 ) {
 <?php if ( ZM_WEB_ID_ON_CONSOLE ) { ?>
             <td class="colId"><?php echo translate('Total').":".count($displayMonitors) ?></td>
 <?php } ?>
-            <td class="colName"></td>
+            <td class="colName">Totals</td>
             <td class="colFunction"><?php echo human_filesize($total_capturing_bandwidth ).'/s' ?></td>
 <?php if ( count($servers) ) { ?>
             <td class="colServer"></td>
