@@ -37,8 +37,11 @@ if ( !canEdit( 'System' ) ) {
           <input type="hidden" name="apply" value="1"/>
 
 	        <div class="form-group">
-	          <label for="runState" class="col-sm-3 control-label">Change State</label>
-	          <div class="col-sm-9">
+                <div class="col-sm-3">
+                    <label for="runState" class="control-label">Change State</label>
+                </div>
+                
+                <div class="col-sm-9">
               <select id="runState" name="runState" class="form-control">
 <?php 
 if ( $running ) {
@@ -62,7 +65,9 @@ foreach ( $states as $state ) {
 	          </div><!--col-sm-9-->
 	        </div><!--form-group-->
 	        <div class="form-group">
-            <label for="newState" class="col-sm-3 control-label"><?php echo translate('NewState') ?></label>
+                <div class="col-sm-3">
+                    <label for="newState" class="control-label"><?php echo translate('NewState') ?></label>
+                </div>
 		        <div class="col-sm-9">
               <input class="form-control" type="text" id="newState"/>
 		        </div>
