@@ -317,7 +317,11 @@ if (isset($_REQUEST['filter']['Query']['terms']['attr'])) {
 <?php } ?>
 
 <?php if ( canEdit( 'System' ) ) { ?>
-		<button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#modalState"><?php echo $status ?></button>
+    <p class="navbar-text">
+        <i class="material-icons">power</i>
+        <a href="#" data-toggle="modal" data-target="#modalState"><?php echo $status ?></a>
+    </p>
+        <!-- <button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#modalState"></button> -->
 
 <?php } else if ( canView( 'System' ) ) { ?>
 		<p class="navbar-text"> <?php echo $status ?> </p>
