@@ -604,11 +604,13 @@ color:#ffa801;
     left: 0;
     z-index: 1000;
     display: block;
+    height: 100%;
     padding: 0;
     overflow-x: hidden;
     overflow-y: auto;
     background-color: #f5f5f5;
     border-right: 1px solid #eeeeee;
+    min-height: 700px;
 }
 
 .sidebar ul {
