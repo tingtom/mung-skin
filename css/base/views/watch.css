@@ -9,7 +9,7 @@
     align-items: center;
 }
 
-#menuControls div {
+#menuControls div + div {
     margin: 0 0 0 1em;
 }
 
