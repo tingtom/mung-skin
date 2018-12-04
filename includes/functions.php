@@ -138,7 +138,10 @@ echo output_link_if_exists( array(
   //-->
   //]]>
   </script>
+  
   <script src="skins/<?php echo $skin; ?>/views/js/state.js"></script>
+  <script src="skins/<?php echo $skin; ?>/views/js/bandwidth.js"></script>
+
 <?php
   if ( $title == 'Login' && (defined('ZM_OPT_USE_GOOG_RECAPTCHA') && ZM_OPT_USE_GOOG_RECAPTCHA) ) {
 ?>
@@ -338,11 +341,15 @@ if ($reload == 'reload') ob_start();
 ?>
 	<div id="reload" class="container-fluid reduced-text">
     <div id="Bandwidth" class="pull-left">
-      <?php echo makePopupLink( '?view=bandwidth', 'zmBandwidth', 'bandwidth', "<i class='material-icons md-18'>network_check</i>&nbsp;".$bandwidth_options[$_COOKIE['zmBandwidth']] . ' ', ($user && $user['MaxBandwidth'] != 'low' ) ) ?>
+        <a href="#" data-toggle="modal" data-target="#modalBandwidth"><i class='material-icons md-18'>network_check</i>&nbsp;<?php echo $bandwidth_options[$_COOKIE['zmBandwidth']] ?></a>
+
+      <?php #echo makePopupLink( '?view=bandwidth', 'zmBandwidth', 'bandwidth', "<i class='material-icons md-18'>network_check</i>&nbsp;".$bandwidth_options[$_COOKIE['zmBandwidth']] . ' ', ($user && $user['MaxBandwidth'] != 'low' ) ) ?>
     </div>
+
     <div id="Version" class="pull-right">
       <?php echo makePopupLink( '?view=version', 'zmVersion', 'version', '<span class="version '.$versionClass.'">v'.ZM_VERSION.'</span>', canEdit( 'System' ) ) ?>
     </div>
+    
     <ul class="list-inline">
       <li class="Load"><i class="material-icons md-18">trending_up</i>&nbsp;<?php echo translate('Load') ?>: <?php echo getLoad() ?></li>
 <i class="material-icons md-18">storage</i>
@@ -399,9 +406,11 @@ function xhtmlFooter() {
   global $view;
   global $skin;
   global $running;
+  global $bandwidth_options;
   if ( canEdit('System') ) {
     include("skins/$skin/views/state.php");
   }
+  include("skins/$skin/views/bandwidth.php");
 ?>
   </body>
   <script type="text/javascript">$j('.chosen').chosen();</script>
