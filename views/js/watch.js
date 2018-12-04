@@ -513,7 +513,7 @@ function getEventCmdResponse( respObj, respText ) {
         link.inject( row.getElement( 'td.colScore' ) );
 
         link = new Element( 'a', { 'href': '#', 'title': deleteString, 'events': { 'click': function( e ) { deleteEvent( e, event.Id ); }.bind( link ), 'mouseover': highlightRow.pass( row ), 'mouseout': highlightRow.pass( row ) } });
-        link.set( 'text', 'X' );
+        link.set( 'html', "<i class='glyphicon glyphicon-trash'></i>" );
         link.inject( row.getElement( 'td.colDelete' ) );
 
         if ( i == 0 )

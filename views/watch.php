@@ -111,18 +111,33 @@ if ( $streamMode == 'jpeg' ) {
 <?php 
   }
 ?>
-        <input type="button" value="||" id="pauseBtn" title="<?php echo translate('Pause') ?>" class="inactive" onclick="streamCmdPause(true)"/>
-        <input type="button" value="[]" id="stopBtn" title="<?php echo translate('Stop') ?>" class="unavail" disabled="disabled" onclick="streamCmdStop(true)"/>
-        <input type="button" value="|&gt;" id="playBtn" title="<?php echo translate('Play') ?>" class="active" disabled="disabled" onclick="streamCmdPlay(true)"/>
+        <a href="#" id="pauseBtn" class="btn inactive" title="<?php echo translate('Pause') ?>" onclick="streamCmdPause(true)">
+            <i class="glyphicon glyphicon-pause"></i>
+        </a>
+        
+        <a href="#" id="stopBtn" class="btn unavail" title="<?php echo translate('Stop') ?>" onclick="streamCmdStop(true)">
+            <i class="glyphicon glyphicon-stop"></i>
+        </a>
+
+        <a href="#" id="playBtn" class="btn active" title="<?php echo translate('Play') ?>" onclick="streamCmdPlay(true)">
+            <i class="glyphicon glyphicon-play"></i>
+        </a>
 <?php
   if ( $monitor->StreamReplayBuffer() != 0 ) {
 ?>
-        <input type="button" value="&gt;" id="slowFwdBtn" title="<?php echo translate('StepForward') ?>" class="unavail" disabled="disabled" onclick="streamCmdSlowFwd(true)"/>
-        <input type="button" value="&gt;&gt;" id="fastFwdBtn" title="<?php echo translate('FastForward') ?>" class="unavail" disabled="disabled" onclick="streamCmdFastFwd(true)"/>
+        <a href="#" id="slowFwdBtn" class="btn unavail" title="<?php echo translate('StepForward') ?>" onclick="streamCmdSlowFwd(true)">
+            <i class="glyphicon glyphicon-forward"></i>
+        </a>
+
+        <a href="#" id="fastFwdBtn" class="btn unavail" title="<?php echo translate('FastForward') ?>" onclick="streamCmdFastFwd(true)">
+            <i class="glyphicon glyphicon-fast-forward"></i>
+        </a>
 <?php
   }
 ?>
-        <input type="button" value="&ndash;" id="zoomOutBtn" title="<?php echo translate('ZoomOut') ?>" class="avail" onclick="streamCmdZoomOut()"/>
+        <a href="#" id="zoomOutBtn" class="btn avail" title="<?php echo translate('ZoomOut') ?>" onclick="streamCmdZoomOut()">
+            <i class="glyphicon glyphicon-search"></i>
+        </a>
 <?php
 } // end if streamMode==jpeg
 ?>
