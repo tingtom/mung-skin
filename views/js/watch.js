@@ -1,8 +1,8 @@
 function setButtonState(element, butClass) {
-  if ( element ) {
-    element.className = butClass;
-    element.disabled = (butClass != 'inactive');
-  }
+    if ( element ) {
+        jQuery(element).removeClass("inactive active unavail").addClass(butClass);
+        element.disabled = (butClass != 'inactive');
+    }
 }
 
 function showEvents() {
