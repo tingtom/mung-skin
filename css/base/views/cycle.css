@@ -8,11 +8,6 @@
     margin: 0 0 0 1em;
 }
 
-#imageFeed img {
-    height: calc(100vh - 133px);
-    margin-bottom: 0;
-}
-
 #content {
     margin-bottom: 5px;
 }

@@ -84,7 +84,6 @@ xhtmlHeaders(__FILE__, translate('CycleWatch'));
       </div>
     </div>
     <div id="content">
-      <div id="imageFeed">
       <?php 
         if ( $monitor ) {
           echo getStreamHTML($monitor, array('scale'=>$scale, 'mode'=>$mode, 'width'=>'auto'));
@@ -92,7 +91,6 @@ xhtmlHeaders(__FILE__, translate('CycleWatch'));
           echo "There are no monitors to view.";
         }
       ?>
-      </div>
     </div>
   </div>
 <?php xhtmlFooter() ?>
