@@ -154,6 +154,11 @@ while ( $event_row = dbFetchNext($results) ) {
 ?>
             <tr>
               <th class="colId"><a href="<?php echo sortHeader('Id') ?>"><?php echo translate('Id') ?><?php echo sortTag('Id') ?></a></th>
+
+<?php if ( ZM_WEB_LIST_THUMBS ) { ?>
+              <th class="colThumbnail"><?php echo translate('Thumbnail') ?></th>
+<?php } ?>
+
               <th class="colName"><a href="<?php echo sortHeader('Name') ?>"><?php echo translate('Name') ?><?php echo sortTag('Name') ?></a></th>
               <th class="colMonitor"><a href="<?php echo sortHeader('MonitorName') ?>"><?php echo translate('Monitor') ?><?php echo sortTag('MonitorName') ?></a></th>
               <th class="colCause"><a href="<?php echo sortHeader('Cause') ?>"><?php echo translate('Cause') ?><?php echo sortTag('Cause') ?></a></th>
@@ -175,11 +180,6 @@ while ( $event_row = dbFetchNext($results) ) {
               <th class="colDiskSpace"><a href="<?php echo sortHeader('DiskSpace') ?>"><?php echo translate('DiskSpace') ?><?php echo sortTag('DiskSpace') ?></a></th>
 <?php
     }
-    if ( ZM_WEB_LIST_THUMBS ) {
-?>
-              <th class="colThumbnail"><?php echo translate('Thumbnail') ?></th>
-<?php
-    }
 ?>
               <th class="colMark"><input type="checkbox" name="toggleCheck" value="1" onclick="toggleCheckbox(this, 'markEids');"/></th>
             </tr>
@@ -189,6 +189,19 @@ while ( $event_row = dbFetchNext($results) ) {
 ?>
             <tr<?php if ($event->Archived()) echo ' class="archived"' ?>>
               <td class="colId"><a href="?view=event&amp;eid=<?php echo $event->Id().$filterQuery.$sortQuery.'&amp;page=1"> '.$event->Id().($event->Archived()?'*':'') ?></a></td>
+
+<?php if ( ZM_WEB_LIST_THUMBS ) {
+#Logger::Debug(print_r($thumbData,true));
+      echo '<td class="colThumbnail">';
+      $imgSrc = $event->getThumbnailSrc();
+      $streamSrc = $event->getStreamSrc(array(
+        'mode'=>'jpeg', 'scale'=>$scale, 'maxfps'=>ZM_WEB_VIDEO_MAXFPS, 'replay'=>'single'));
+
+      $imgHtml = '<img id="thumbnail'.$event->id().'" src="'.$imgSrc.'" alt="'. validHtmlStr('Event '.$event->Id()) .'" style="width:'. validInt($event->ThumbnailWidth()) .'px;height:'. validInt($event->ThumbnailHeight()).'px;" onmouseover="this.src=\''.$streamSrc.'\';" onmouseout="this.src=\''.$imgSrc.'\';"/>';
+      echo '<a href="?view=event&amp;eid='. $event->Id().$filterQuery.$sortQuery.'&amp;page=1">'.$imgHtml.'</a>';
+      echo '</td>';
+  } // end if ZM_WEB_LIST_THUMBS ?>
+
               <td class="colName"><a href="?view=event&amp;eid=<?php echo $event->Id().$filterQuery.$sortQuery.'&amp;page=1"> '.validHtmlStr($event->Name()).($event->Archived()?'*':'') ?></a></td>
               <td class="colMonitorName"><?php echo makePopupLink( '?view=monitor&amp;mid='.$event->MonitorId(), 'zmMonitor'.$event->Monitorid(), 'monitor', $event->MonitorName(), canEdit( 'Monitors' ) ) ?></td>
               <td class="colCause"><?php echo makePopupLink( '?view=eventdetail&amp;eid='.$event->Id(), 'zmEventDetail', 'eventdetail', validHtmlStr($event->Cause()), canEdit( 'Events' ), 'title="'.htmlspecialchars($event->Notes()).'"' ) ?></td>
@@ -215,20 +228,7 @@ while ( $event_row = dbFetchNext($results) ) {
     $disk_space_total += $event->DiskSpace();
 ?>
               <td class="colDiskSpace"><?php echo human_filesize($event->DiskSpace()) ?></td>
-<?php
-  }
-  if ( ZM_WEB_LIST_THUMBS ) {
-#Logger::Debug(print_r($thumbData,true));
-      echo '<td class="colThumbnail">';
-      $imgSrc = $event->getThumbnailSrc();
-      $streamSrc = $event->getStreamSrc(array(
-        'mode'=>'jpeg', 'scale'=>$scale, 'maxfps'=>ZM_WEB_VIDEO_MAXFPS, 'replay'=>'single'));
-
-      $imgHtml = '<img id="thumbnail'.$event->id().'" src="'.$imgSrc.'" alt="'. validHtmlStr('Event '.$event->Id()) .'" style="width:'. validInt($event->ThumbnailWidth()) .'px;height:'. validInt($event->ThumbnailHeight()).'px;" onmouseover="this.src=\''.$streamSrc.'\';" onmouseout="this.src=\''.$imgSrc.'\';"/>';
-      echo '<a href="?view=event&amp;eid='. $event->Id().$filterQuery.$sortQuery.'&amp;page=1">'.$imgHtml.'</a>';
-      echo '</td>';
-  } // end if ZM_WEB_LIST_THUMBS
-?>
+<?php } ?>
               <td class="colMark"><input type="checkbox" name="markEids[]" value="<?php echo $event->Id() ?>" onclick="configureButton(this, 'markEids');"/></td>
             </tr>
 <?php
