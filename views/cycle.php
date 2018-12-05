@@ -87,7 +87,7 @@ xhtmlHeaders(__FILE__, translate('CycleWatch'));
       <div id="imageFeed">
       <?php 
         if ( $monitor ) {
-          echo getStreamHTML($monitor, array('scale'=>$scale, 'mode'=>$mode, 'width'=>'100%'));
+          echo getStreamHTML($monitor, array('scale'=>$scale, 'mode'=>$mode, 'width'=>'auto'));
         } else {
           echo "There are no monitors to view.";
         }
