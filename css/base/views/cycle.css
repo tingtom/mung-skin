@@ -1,0 +1,18 @@
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.controlHeader span + span {
+    margin: 0 0 0 1em;
+}
+
+#imageFeed img {
+    height: calc(100vh - 133px);
+    margin-bottom: 0;
+}
+
+#content {
+    margin-bottom: 5px;
+}
