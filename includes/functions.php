@@ -417,4 +417,59 @@ function xhtmlFooter() {
 </html>
 <?php
 } // end xhtmlFooter
+
+function getNewPagination( $pages, $page, $maxShortcuts, $query, $querySep='&amp;' ) {
+    global $view;
+    $pageText = '';
+    if ( $pages > 1 ) {
+      if ( $page ) {
+        if ( $page < 0 )
+          $page = 1;
+        if ( $page > $pages )
+          $page = $pages;
+        if ( $page > 1 ) {
+          $pageText .= '<a href="?view='.$view.$querySep.'page='.($page-1).$query.'"><i class="glyphicon glyphicon-chevron-left"></i></a>';
+          $newPages = array();
+          $pagesUsed = array();
+          $lo_exp = max(2,log($page-1)/log($maxShortcuts));
+          for ( $i = 0; $i < $maxShortcuts; $i++ ) {
+            $newPage = round($page-pow($lo_exp,$i));
+            if ( isset($pagesUsed[$newPage]) )
+              continue;
+            if ( $newPage <= 1 )
+              break;
+            $pagesUsed[$newPage] = true;
+            array_unshift( $newPages, $newPage );
+          }
+          if ( !isset($pagesUsed[1]) )
+            array_unshift( $newPages, 1 );
+          foreach ( $newPages as $newPage ) {
+            $pageText .= '<a href="?view='.$view.$querySep.'page='.$newPage.$query.'">'.$newPage.'</a>';
+          }
+        }
+        $pageText .= "<span class='current'>".$page."</span>";
+        if ( $page < $pages ) {
+          $newPages = array();
+          $pagesUsed = array();
+          $hi_exp = max(2,log($pages-$page)/log($maxShortcuts));
+          for ( $i = 0; $i < $maxShortcuts; $i++ ) {
+            $newPage = round($page+pow($hi_exp,$i));
+            if ( isset($pagesUsed[$newPage]) )
+              continue;
+            if ( $newPage > $pages )
+              break;
+            $pagesUsed[$newPage] = true;
+            array_push( $newPages, $newPage );
+          }
+          if ( !isset($pagesUsed[$pages]) )
+            array_push( $newPages, $pages );
+          foreach ( $newPages as $newPage ) {
+            $pageText .= '<a href="?view='.$view.$querySep.'page='.$newPage.$query.'">'.$newPage.'</a>';
+          }
+          $pageText .= '<a href="?view='.$view.$querySep.'page='.($page+1).$query.'"><i class="glyphicon glyphicon-chevron-right"></i></a>';
+        }
+      }
+    }
+    return( $pageText );
+  }
 ?>
