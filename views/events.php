@@ -266,7 +266,9 @@ while ( $event_row = dbFetchNext($results) ) {
 <?php
 if ( $pagination ) {
 ?>
+    <div id="pagination">
         <h3 class="pagination"><?php echo $pagination ?></h3>
+    </div>
 <?php
 }
 ?>
