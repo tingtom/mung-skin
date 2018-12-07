@@ -83,8 +83,12 @@ function group_line( $Group ) {
   return $html;
 }
 if ( isset( $children[null] ) )
+{
   foreach ( $children[null] as $Group )
     echo group_line($Group);
+} else {
+    echo "<tr><td colspan='3'><p class='text-center' style='margin:2px 0'>".translate("NoneAvailable")."</p></td></tr>";
+}
 ?>
           </tbody>
         </table>
