@@ -295,6 +295,7 @@ if ( $pagination ) {
           <?php echo translate('Delete') ?>
           </button>
         </div>
+        <div class="clear"></div>
       </form>
     </div>
   </div>
