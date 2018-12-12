@@ -11,3 +11,7 @@
 #content {
     margin-bottom: 5px;
 }
+
+#content img {
+    height: 100%;
+}

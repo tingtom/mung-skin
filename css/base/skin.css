@@ -97,15 +97,31 @@ p {
     font-family: inherit;
     font-size: 100%;
     font-weight: normal;
+    margin-bottom: 0;
 }
 
-th {
-/*
-    padding: 3px;
-    text-transform: uppercase;
-    font-size: 0.8em;
-    font-weight: 600;
-*/
+p + p {
+    margin-top: 1rem;
+}
+
+.grid-container {
+    max-width: 1280px;
+}
+
+header {
+
+}
+
+header .top-bar {
+
+}
+
+header .top-bar .top-bar-right p {
+    
+}
+
+header .info-panel {
+
 }
 
 
@@ -425,17 +441,19 @@ th.table-th-sort-rev span.table-th-sort-span {
  */
 
 #page {
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
 #header {
-    width: 100%;
     text-align: left;
     background-color: #34495e;
     padding: 5px 20px;
     margin: 0 auto 4px auto;
     color: white;
     font-weight: 300;
+    width: 100%;
 }
 
 #header h2 {
@@ -477,6 +495,7 @@ th.table-th-sort-rev span.table-th-sort-span {
     padding: 10px 15px;
     line-height: 130%;
     text-align: center;
+    flex: 1;
 }
 
 #content p {
