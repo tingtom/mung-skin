@@ -76,17 +76,22 @@ if ( file_exists( "skins/$skin/css/$css/graphics/favicon.ico" ) ) {
   <link rel="stylesheet" href="skins/<?php echo $skin; ?>/css/foundation.min.css" type="text/css"/>
   
 <?php 
-echo output_link_if_exists( array(
-  'css/base/skin.css',
-  'css/'.$css.'/skin.css',
-  'css/base/views/'.$basename.'.css',
-  'css/'.$css.'/views/'.$basename.'.css',
-  '/js/dateTimePicker/jquery-ui-timepicker-addon.css',
-  '/js/jquery-ui-1.12.1/jquery-ui.structure.min.css',
-  '/css/jquery-ui-1.12.1/jquery-ui.theme.min.css',
-  '/css/'.$css.'/jquery-ui-theme.css',
-)
-);
+    $links = array(
+        'css/base/skin.css',
+        'css/base/views/'.$basename.'.css',
+        '/js/dateTimePicker/jquery-ui-timepicker-addon.css',
+        '/js/jquery-ui-1.12.1/jquery-ui.structure.min.css',
+        '/css/jquery-ui-1.12.1/jquery-ui.theme.min.css',
+        '/css/'.$css.'/jquery-ui-theme.css'
+    );
+
+    if($css !== "base")
+    {
+        array_push($links, "css/".$css."/skin.css");
+        array_push($links, "css/".$css."/views/".$basename.".css");
+    }
+
+    echo output_link_if_exists($links);
 ?>
 
 <?php
@@ -105,9 +110,7 @@ echo output_link_if_exists( array(
 ?>
   /*]]>*/
   </style>
-<?php
-  }
-?>
+<?php } ?>
 
   <script src="skins/<?php echo $skin; ?>/js/jquery.js"></script>
   <script src="skins/<?php echo $skin; ?>/js/jquery-ui-1.12.1/jquery-ui.js"></script>
