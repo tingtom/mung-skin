@@ -112,6 +112,7 @@ if ( file_exists( "skins/$skin/css/$css/graphics/favicon.ico" ) ) {
   </style>
 <?php } ?>
 
+  <script src="tools/mootools/mootools-core.js"></script>
   <script src="skins/<?php echo $skin; ?>/js/jquery.js"></script>
   <script src="skins/<?php echo $skin; ?>/js/jquery-ui-1.12.1/jquery-ui.js"></script>
   <script src="skins/<?php echo $skin; ?>/js/dateTimePicker/jquery-ui-timepicker-addon.js"></script>
