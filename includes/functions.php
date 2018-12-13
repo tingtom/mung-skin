@@ -72,7 +72,6 @@ if ( file_exists( "skins/$skin/css/$css/graphics/favicon.ico" ) ) {
 ';
 }
 ?>
-  <link rel="stylesheet" href="css/reset.css" type="text/css"/>
   <link rel="stylesheet" href="css/overlay.css" type="text/css"/>
   <link rel="stylesheet" href="skins/<?php echo $skin; ?>/css/foundation.min.css" type="text/css"/>
   
