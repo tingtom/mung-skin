@@ -8,7 +8,7 @@ function setButtonStates( element ) {
       &&
       form.elements[i].name=="markMids[]"
     ) {
-      var tr = $j(form.elements[i]).closest("tr");
+      var tr = $(form.elements[i]).closest("tr");
       if ( form.elements[i].checked ) {
         checked ++;
         tr.addClass("danger");
@@ -22,7 +22,7 @@ function setButtonStates( element ) {
     form.deleteBtn.disabled = false;
     form.selectBtn.disabled = false;
     if ( checked == 1 ) {
-      $j(form.cloneBtn).css('display','inline');
+      $(form.cloneBtn).css('display','inline');
     } else {
       form.cloneBtn.hide();
     }
@@ -123,17 +123,17 @@ function initPage() {
     createPopup( '?view=donate', 'zmDonate', 'donate' );
 
   // Makes table sortable
-  $j( function() {
-    $j( "#consoleTableBody" ).sortable({
+  $(function() {
+    $( "#consoleTableBody" ).sortable({
         handle: ".glyphicon-sort",
         update: applySort,
         axis:'Y' } );
-    $j( "#consoleTableBody" ).disableSelection();
-  } );
+    $( "#consoleTableBody" ).disableSelection();
+  });
 }
 
 function applySort(event, ui) {
-  var monitor_ids = $j(this).sortable('toArray');
+  var monitor_ids = $(this).sortable('toArray');
   var ajax = new Request.JSON( {
       url: 'index.php?request=console',
       data: { monitor_ids: monitor_ids, action: 'sort' },
@@ -143,4 +143,4 @@ function applySort(event, ui) {
   ajax.send();
 } // end function applySort(event,ui)
 
-window.addEvent( 'domready', initPage );
+$(document).ready(initPage);

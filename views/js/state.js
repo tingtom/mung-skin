@@ -1,41 +1,39 @@
-$j(document).ready(function() {
+$(document).ready(function() {
 	// Enable or disable the Delete button depending on the selected run state
-	$j("#runState").change(function() {
-		runstate = $j(this).val();
+	$("#runState").change(function() {
+		runstate = $(this).val();
 
 		if ( (runstate == 'stop') || (runstate == 'restart') || (runstate == 'start') || (runstate == 'default') ) {
-			$j("#btnDelete").prop( "disabled", true );
+			$("#btnDelete").prop( "disabled", true );
 		} else {
-			$j("#btnDelete").prop( "disabled", false );
+			$("#btnDelete").prop( "disabled", false );
 		}
 	});
 
 	// Enable or disable the Save button when entering a new state
-	$j("#newState").keyup(function() {
-		length = $j(this).val().length;
-		console.log(length);
+	$("#newState").keyup(function() {
+		length = $(this).val().length;
+        
 		if (length < 1) {
-			$j("#btnSave").prop( "disabled", true );
+			$("#btnSave").prop( "disabled", true );
 		} else {
-			$j("#btnSave").prop( "disabled", false );
+			$("#btnSave").prop( "disabled", false );
 		}
 	});
-	
 
 	// Delete a state
-	$j("#btnDelete").click(function() {
-    		StateStuff( 'delete', $j("#runState").val( ));
+	$("#btnDelete").click(function() {
+        StateStuff( 'delete', $("#runState").val( ));
 	});
 
-
 	// Save a new state
-	$j("#btnSave").click(function() {
-		StateStuff( 'save', undefined, $j("#newState").val() );
+	$("#btnSave").click(function() {
+		StateStuff( 'save', undefined, $("#newState").val() );
 	});
 
 	// Change state
-	$j("#btnApply").click(function() {
-		StateStuff( 'state', $j("#runState").val() );
+	$("#btnApply").click(function() {
+		StateStuff( 'state', $("#runState").val() );
 	});
 
 	function StateStuff( action, runState, newState ){
@@ -48,9 +46,9 @@ $j(document).ready(function() {
 		};
 		console.log(formData);
 
-		$j("#pleasewait").toggleClass("hidden");
+		$("#pleasewait").toggleClass("hidden");
 
-		$j.ajax({
+		$.ajax({
 			type: 'POST',
 			url: thisUrl,
 			data: formData,
@@ -59,7 +57,5 @@ $j(document).ready(function() {
 		}).done(function(data) {
 			location.reload();
 		});
-
 	}
-
 });

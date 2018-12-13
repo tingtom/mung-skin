@@ -183,16 +183,16 @@ function refreshParentWindow() {
 }
 
 if ( currentView != 'none' && currentView != 'login' ) {
-  $j.ajaxSetup ({timeout: AJAX_TIMEOUT }); //sets timeout for all getJSON.
+  $.ajaxSetup ({timeout: AJAX_TIMEOUT }); //sets timeout for all getJSON.
 
-  $j(document).ready(function() {
-    if ($j('.navbar').length) {
+  $(document).ready(function() {
+    if ($('.navbar').length) {
       setInterval(getNavBar, navBarRefresh);
     }
   });
 
   function getNavBar() {
-    $j.getJSON(thisUrl + '?view=request&request=status&entity=navBar')
+    $.getJSON(thisUrl + '?view=request&request=status&entity=navBar')
       .done(setNavBar)
       .fail(function( jqxhr, textStatus, error ) {
         console.log( "Request Failed: " + textStatus + ", " + error);
@@ -212,7 +212,7 @@ if ( currentView != 'none' && currentView != 'login' ) {
         auth_hash = data.auth;
       }
     }
-    $j('#reload').replaceWith(data.message);
+    $('#reload').replaceWith(data.message);
   }
 }
 
@@ -304,7 +304,7 @@ if ( closePopup ) {
   closeWindow();
 }
 
-window.addEvent( 'domready', checkSize );
+$(document).ready(checkSize);
 
 function convertLabelFormat(LabelFormat, monitorName){
 	//convert label format from strftime to moment's format (modified from
@@ -361,10 +361,10 @@ function endOfResize(e) {
 }
 
 function scaleToFit (baseWidth, baseHeight, scaleEl, bottomEl) {
-  $j(window).on('resize', endOfResize)  //set delayed scaling when Scale to Fit is selected
+  $(window).on('resize', endOfResize)  //set delayed scaling when Scale to Fit is selected
   let ratio = baseWidth / baseHeight;
-  let container = $j('#content');
-  let viewPort = $j(window);
+  let container = $('#content');
+  let viewPort = $(window);
 // jquery does not provide a bottom offet, and offset dows not include margins.  outerHeight true minus false gives total vertical margins.
   let bottomLoc = bottomEl.offset().top + (bottomEl.outerHeight(true) - bottomEl.outerHeight()) + bottomEl.outerHeight(true);
   let newHeight = viewPort.height() - (bottomLoc - scaleEl.outerHeight(true))
@@ -374,10 +374,10 @@ function scaleToFit (baseWidth, baseHeight, scaleEl, bottomEl) {
     newHeight = newWidth / ratio;
   }
   let autoScale = Math.round(newWidth / baseWidth * SCALE_BASE);
-  let scales = $j('#scale option').map(function() {return parseInt($j(this).val());}).get();
+  let scales = $('#scale option').map(function() {return parseInt($(this).val());}).get();
   scales.shift();
   let closest;
-  $j(scales).each(function () { //Set zms scale to nearest regular scale.  Zoom does not like arbitrary scale values.
+  $(scales).each(function () { //Set zms scale to nearest regular scale.  Zoom does not like arbitrary scale values.
     if (closest == null || Math.abs(this - autoScale) < Math.abs(closest - autoScale)) {
       closest = this.valueOf();
     }

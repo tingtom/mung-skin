@@ -1,7 +1,7 @@
-$j(document).ready(function() {
+$(document).ready(function() {
 	// Change bandwidth
-	$j("#btnApplyBandwidth").click(function() {
-		StateStuff( 'bandwidth', $j("#newBandwidth").val() );
+	$("#btnApplyBandwidth").click(function() {
+		StateStuff( 'bandwidth', $("#newBandwidth").val() );
 	});
 
 	function StateStuff( action, newBandwidth ){
@@ -11,9 +11,8 @@ $j(document).ready(function() {
 			'apply' : 1,
 			'newBandwidth': newBandwidth
 		};
-		console.log(formData);
 
-		$j.ajax({
+		$.ajax({
 			type: 'POST',
 			url: thisUrl,
 			data: formData,
