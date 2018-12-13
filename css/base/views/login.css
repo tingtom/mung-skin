@@ -2,50 +2,22 @@ body {
 	background-color: #f8f8f8;
 }
 
-form {
-	/* max-width: 450px; */
-	/* margin: 15px auto; */
-	border: 1px solid #e7e7e7;
-	background-color: #fff;
-	box-shadow: 0 0 6px 0 rgba(0,0,0,0.08);
-}
-
-form .alarm {
-	font-size:100%;
-	padding: 15px;
-	border-bottom: 1px solid #e7e7e7;
-}
-
 .grid-container.grid-x {
     height: 100%;
 }
 
 #loginform {
 	padding: 40px 60px;
-}
-
-#loginform .form-control {
-	height: 54px;
-}
-
-#loginform input[type="text"] {
-	margin-bottom: -1px;
-	border-bottom-right-radius: 0;
-	border-bottom-left-radius: 0;
-}
-
-#loginform input[type="password"] {
-	margin-bottom: 10px;
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
-}
-
-#loginform input[type="submit"] {
-	margin-top: 20px;
+    border: 1px solid #e7e7e7;
+	background-color: #fff;
+	box-shadow: 0 0 6px 0 rgba(0,0,0,0.08);
 }
 
 #loginform h1 {
 	font-size: 150%;
-	margin-top: 0;
-	margin-bottom: 15px;
+	margin-bottom: 2rem;
+}
+
+#loginform input[type="submit"] {
+	margin-top: 1rem;
 }
