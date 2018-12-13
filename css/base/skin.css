@@ -109,11 +109,11 @@ p + p {
 }
 
 header {
-
+    background-color: #34495e;
 }
 
-header .top-bar {
-
+header .top-bar, header .top-bar ul {
+    background-color: transparent;
 }
 
 header .top-bar .top-bar-right p {
