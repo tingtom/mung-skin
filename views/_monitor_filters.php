@@ -45,7 +45,7 @@ foreach ( $storage_areas as $S ) {
 
 $html =
 '
-<div class="controlHeader">
+<div class="filter-wrapper grid-x grid-padding-x align-justify">
   <input type="hidden" name="filtering" value=""/>
 ';
 
@@ -92,17 +92,17 @@ if ( ! empty($user['MonitorIds']) ) {
   $values += $ids;
 }
 
-$html .= '<span class="MonitorNameFilter"><label>'.translate('Name').'</label>';
-$html .= '<input type="text" name="MonitorName" value="'.(isset($_SESSION['MonitorName'])?$_SESSION['MonitorName']:'').'" onkeydown="if(event&&event.keyCode==13){this.form.submit();}" placeholder="text or regular expression"/>';
-$html .= '</span>';
+$html .= '<div class="cell auto grid-x align-middle MonitorNameFilter"><div class="cell shrink"><label>'.translate('Name').'</label></div>';
+$html .= '<div class="cell auto"><input type="text" name="MonitorName" value="'.(isset($_SESSION['MonitorName'])?$_SESSION['MonitorName']:'').'" onkeydown="if(event&&event.keyCode==13){this.form.submit();}" placeholder="text or regular expression"/>';
+$html .= '</div></div>';
 
 $Functions = array();
 foreach ( getEnumValues('Monitors', 'Function') as $optFunction ) {
   $Functions[$optFunction] = translate('Fn'.$optFunction);
 }
 
-$html .= '<span class="FunctionFilter"><label>'.translate('Function').'</label>';
-$html .= htmlSelect('Function[]', $Functions,
+$html .= '<div class="cell auto grid-x align-middle FunctionFilter"><div class="cell shrink"><label>'.translate('Function').'</label></div>';
+$html .= '<div class="cell auto">' . htmlSelect('Function[]', $Functions,
   (isset($_SESSION['Function'])?$_SESSION['Function']:''),
     array(
       'onchange'=>'this.form.submit();',
@@ -111,11 +111,11 @@ $html .= htmlSelect('Function[]', $Functions,
       'data-placeholder'=>'All',
     )
  );
-$html .= '</span>';
+$html .= '</div></div>';
 
 if ( count($ServersById) > 1 ) {
-  $html .= '<span class="ServerFilter"><label>'. translate('Server').'</label>';
-  $html .= htmlSelect('ServerId[]', $ServersById,
+  $html .= '<div class="cell auto grid-x align-middle ServerFilter"><div class="cell shrink"><label>'. translate('Server').'</label></div>';
+  $html .= '<div class="cell auto">' . htmlSelect('ServerId[]', $ServersById,
     (isset($_SESSION['ServerId'])?$_SESSION['ServerId']:''),
     array(
       'onchange'=>'this.form.submit();',
@@ -124,12 +124,12 @@ if ( count($ServersById) > 1 ) {
       'data-placeholder'=>'All',
     )
   );
-  $html .= '</span>';
+  $html .= '</div></div>';
 } # end if have Servers
 
 if ( count($StorageById) > 1 ) {
-  $html .= '<span class="StorageFilter"><label>'.translate('Storage').'</label>';
-  $html .= htmlSelect('StorageId[]', $StorageById,
+  $html .= '<div class="cell auto grid-x align-middle StorageFilter"><div class="cell shrink"><label>'.translate('Storage').'</label></div>';
+  $html .= '<div class="cell auto">' . htmlSelect('StorageId[]', $StorageById,
     (isset($_SESSION['StorageId'])?$_SESSION['StorageId']:''),
     array(
       'onchange'=>'this.form.submit();',
@@ -137,17 +137,17 @@ if ( count($StorageById) > 1 ) {
       'multiple'=>'multiple',
       'data-placeholder'=>'All',
     ) );
-  $html .= '</span>';
+  $html .= '</div></div>';
 } # end if have Storage Areas
 
-$html .= '<span class="StatusFilter"><label>'. translate('Status') . '</label>';
+$html .= '<div class="cell auto grid-x align-middle StatusFilter"><div class="cell shrink"><label>'. translate('Status') . '</label></div>';
 $status_options = array(
     'Unknown' => translate('StatusUnknown'),
     'NotRunning' => translate('StatusNotRunning'),
     'Running' => translate('StatusRunning'),
     'Connected' => translate('StatusConnected'),
     );
-$html .= htmlSelect( 'Status[]', $status_options,
+$html .= '<div class="cell auto">' . htmlSelect( 'Status[]', $status_options,
   ( isset($_SESSION['Status']) ? $_SESSION['Status'] : '' ),
   array(
     'onchange'=>'this.form.submit();',
@@ -155,11 +155,11 @@ $html .= htmlSelect( 'Status[]', $status_options,
     'multiple'=>'multiple',
     'data-placeholder'=>'All'
   ) );
-  $html .= '</span>';
+  $html .= '</div></div>';
 
-  $html .= '<span class="SourceFilter"><label>'.translate('Source').'</label>';
-  $html .= '<input type="text" name="Source" value="'.(isset($_SESSION['Source'])?$_SESSION['Source']:'').'" onkeydown="if(event&&event.keyCode==13){this.form.submit();}" placeholder="text or regular expression"/>';
-  $html .= '</span>';
+  $html .= '<div class="cell auto grid-x align-middle SourceFilter"><div class="cell shrink"><label>'.translate('Source').'</label></div>';
+  $html .= '<div class="cell auto"><input type="text" name="Source" value="'.(isset($_SESSION['Source'])?$_SESSION['Source']:'').'" onkeydown="if(event&&event.keyCode==13){this.form.submit();}" placeholder="text or regular expression"/>';
+  $html .= '</div></div>';
 
   $sql = 'SELECT *,S.Status AS Status, S.CaptureFPS AS CaptureFPS, S.AnalysisFPS AS AnalysisFPS, S.CaptureBandwidth AS CaptureBandwidth
   FROM Monitors AS M LEFT JOIN Monitor_Status AS S ON MonitorId=Id ' .
@@ -232,8 +232,8 @@ $html .= htmlSelect( 'Status[]', $status_options,
     $displayMonitors[] = $monitors[$i];
   } # end foreach monitor
 
-  $html .= '<span class="MonitorFilter"><label>'.translate('Monitor').'</label>';
-  $html .= htmlSelect('MonitorId[]', $monitors_dropdown, $selected_monitor_ids,
+  $html .= '<div class="cell auto grid-x align-middle MonitorFilter"><div class="cell shrink"><label>'.translate('Monitor').'</label></div>';
+  $html .= '<div class="cell auto">' . htmlSelect('MonitorId[]', $monitors_dropdown, $selected_monitor_ids,
     array(
       'onchange'=>'this.form.submit();',
       'class'=>'chosen',
@@ -242,7 +242,7 @@ $html .= htmlSelect( 'Status[]', $status_options,
     ) );
 # Repurpose this variable to be the list of MonitorIds as a result of all the filtering
 $selected_monitor_ids = array_map(function($monitor_row){return $monitor_row['Id'];}, $displayMonitors);
-  $html .= '</span>';
+  $html .= '</div></div>';
   echo $html;
 ?>
 </div>
