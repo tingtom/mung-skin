@@ -237,7 +237,7 @@ function getNavBarHTML($reload = null) {
     <div class="grid-container">
     <nav class="top-bar stacked-for-medium sticky" data-sticky data-margin-top="0">
         <div class="top-bar-left">
-            <ul class="menu">
+            <ul class="menu align-middle">
                 <li>
                     <a href="<?php echo ZM_HOME_URL?>" title="<?php echo ZM_WEB_TITLE ?>"><?php echo ZM_HOME_CONTENT ?></a>
                 </li>
