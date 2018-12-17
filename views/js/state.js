@@ -44,9 +44,8 @@ $(document).ready(function() {
 			'runState' : runState,
 			'newState' : newState
 		};
-		console.log(formData);
 
-		$("#pleasewait").toggleClass("hidden");
+		$("#pleasewait").toggleClass("hide");
 
 		$.ajax({
 			type: 'POST',
