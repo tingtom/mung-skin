@@ -234,8 +234,8 @@ function getNavBarHTML($reload = null) {
 </noscript>
 
 <header data-sticky-container>
-    <div class="grid-container">
-    <nav class="top-bar stacked-for-medium sticky" data-sticky data-margin-top="0">
+    <div class="sticky" data-sticky data-margin-top="0">
+    <nav class="top-bar stacked-for-medium">
         <div class="top-bar-left">
             <ul class="menu align-middle">
                 <li>
@@ -300,29 +300,30 @@ function getNavBarHTML($reload = null) {
         </div>
 
         <div class="top-bar-right">
+            <div class="grid-x">
 <?php if ( ZM_OPT_USE_AUTH and $user ) { ?>
-	        <p><i class="material-icons">account_circle</i> <?php echo makePopupLink( '?view=logout', 'zmLogout', 'logout', $user['Username'], (ZM_AUTH_TYPE == "builtin") ) ?> </p>
+	            <div class="cell shrink"><i class="material-icons">account_circle</i> <?php echo makePopupLink( '?view=logout', 'zmLogout', 'logout', $user['Username'], (ZM_AUTH_TYPE == "builtin") ) ?> </div>
 <?php } ?>
 
 <?php if ( canEdit( 'System' ) ) { ?>
-            <p>
+            <div class="cell shrink">
                 <i class="material-icons">power</i>
-                <a href="#" data-toggle="modal" data-target="#modalState"><?php echo $status ?></a>
-            </p>
+                <a href="#" data-open="modalState"><?php echo $status ?></a>
+            </div>
             <!-- <button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#modalState"></button> -->
 <?php } else if ( canView( 'System' ) ) { ?>
-		    <p> <?php echo $status ?> </p>
+		    <div class="cell shrink"> <?php echo $status ?> </div>
 <?php } ?>
+            </div>
         </div>
     </nav>
 
-    <div class="grid-x align-justify info-panel" <?php echo ( isset($_COOKIE['zmHeaderFlip']) and $_COOKIE['zmHeaderFlip'] == 'down' ) ? 'style="display:none;"' : '' ?>>
-        
 <?php } if ( (!ZM_OPT_USE_AUTH) or $user ) {
         if ($reload == 'reload') ob_start();
 ?>
+    <div class="grid-x align-justify info-panel" <?php echo ( isset($_COOKIE['zmHeaderFlip']) and $_COOKIE['zmHeaderFlip'] == 'down' ) ? 'style="display:none;"' : '' ?>>
         <div class="cell shrink">
-            <a href="#" data-toggle="modal" data-target="#modalBandwidth"><i class='material-icons md-18'>network_check</i>&nbsp;<?php echo $bandwidth_options[$_COOKIE['zmBandwidth']] ?></a>
+            <a href="#" data-open="modalBandwidth"><i class='material-icons md-18'>network_check</i>&nbsp;<?php echo $bandwidth_options[$_COOKIE['zmBandwidth']] ?></a>
         </div>
 
         <div class="cell shrink">
@@ -372,9 +373,8 @@ echo '<li'. ( $percent_used > 90 ? ' class="warning"' : '' ).'>'.translate('DB')
         <div class="cell shrink">
             <?php echo makePopupLink( '?view=version', 'zmVersion', 'version', '<span class="version '.$versionClass.'">v'.ZM_VERSION.'</span>', canEdit( 'System' ) ) ?>
         </div>
-
-<?php if ($reload == 'reload') return ob_get_clean(); } ?>
     </div>
+<?php if ($reload == 'reload') return ob_get_clean(); } ?>
     </div>
 </header>
 
