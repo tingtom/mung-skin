@@ -23,63 +23,68 @@ if ( !canEdit( 'System' ) ) {
   return;
 }
 ?>
-<div id="modalState" class="modal fade">
+<div id="modalState" class="reveal" data-reveal>
   <form class="form-horizontal" name="contentForm" id="contentForm" method="get" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h2 class="modal-title"><?php echo translate('RunState') ?></h2>
-        </div>
-        <div class="modal-body">
-          <input type="hidden" name="view" value="<?php echo $view ?>"/>
-          <input type="hidden" name="action" value="state"/>
-          <input type="hidden" name="apply" value="1"/>
+    <input type="hidden" name="view" value="<?php echo $view ?>"/>
+    <input type="hidden" name="action" value="state"/>
+    <input type="hidden" name="apply" value="1"/>
 
-	        <div class="form-group">
-                <div class="col-sm-3">
-                    <label for="runState" class="control-label">Change State</label>
-                </div>
-                
-                <div class="col-sm-9">
-              <select id="runState" name="runState" class="form-control">
-<?php 
-if ( $running ) {
-?>
-                <option value="stop" selected="selected"><?php echo translate('Stop') ?></option>
-                <option value="restart"><?php echo translate('Restart') ?></option>
-<?php
-} else {
-?>
-                <option value="start" selected="selected"><?php echo translate('Start') ?></option>
-<?php
-}
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
+
+    <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+            <div class="cell">
+                <h2><?php echo translate('RunState') ?></h2>
+            </div>
+
+            <div class="cell">
+                <label for="runState">Change State
+                    <select id="runState" name="runState">
+<?php if ( $running ) { ?>
+                        <option value="stop" selected="selected"><?php echo translate('Stop') ?></option>
+                        <option value="restart"><?php echo translate('Restart') ?></option>
+<?php } else { ?>
+                        <option value="start" selected="selected"><?php echo translate('Start') ?></option>
+<?php }
 $states = dbFetchAll( 'SELECT * FROM States' );
 foreach ( $states as $state ) {
 ?>
-                <option value="<?php echo $state['Name'] ?>"><?php echo $state['Name'] ?></option>
-<?php
-}
-?>
-              </select>
-	          </div><!--col-sm-9-->
-	        </div><!--form-group-->
-	        <div class="form-group">
-                <div class="col-sm-3">
-                    <label for="newState" class="control-label"><?php echo translate('NewState') ?></label>
+                        <option value="<?php echo $state['Name'] ?>"><?php echo $state['Name'] ?></option>
+<?php } ?>
+                    </select>
+                </label>
+            </div>
+
+            <div class="cell">
+                <label for="newState"><?php echo translate('NewState') ?>
+                    <input type="text" id="newState"/>
+                </label>
+            </div>
+
+            <div class="cell grid-x align-justify align-middle">
+                <div class="cell shrink text-left">
+                    <p class="hide" id="pleasewait"><?php echo translate('PleaseWait') ?></p>
                 </div>
-		        <div class="col-sm-9">
-              <input class="form-control" type="text" id="newState"/>
-		        </div>
-	        </div>
-        </div> <!-- modal-body -->
-        <div class="modal-footer">
-          <button class="btn btn-primary" type="button" id="btnApply"><?php echo translate('Apply') ?></button>
-          <button class="btn btn-primary" type="button" id="btnSave" disabled><?php echo translate('Save') ?></button>
-          <button class="btn btn-danger" type="button" id="btnDelete" disabled><?php echo translate('Delete') ?></button>
-          <p class="pull-left hidden" id="pleasewait"><?php echo translate('PleaseWait') ?></p>
-	      </div><!-- footer -->
-      </div> <!-- content -->
-    </div> <!-- dialog -->
+
+                <div class="cell shrink">
+                    <div class="grid-x grid-padding-x align-right">
+                        <div class="cell shrink">
+                            <button class="button" type="button" id="btnApply"><?php echo translate('Apply') ?></button>
+                        </div>
+
+                        <div class="cell shrink">
+                            <button class="button" type="button" id="btnSave" disabled><?php echo translate('Save') ?></button>
+                        </div>
+
+                        <div class="cell shrink">
+                            <button class="button" type="button" id="btnDelete" disabled><?php echo translate('Delete') ?></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
   </form>
 </div> <!-- state -->
