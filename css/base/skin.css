@@ -66,7 +66,7 @@ body {
     font-family: "Open Sans", Verdana, Arial, Helvetica, sans-serif;
     font-size: 13px;
     font-weight: 300;
-    text-align: center;
+    /* text-align: center; */
 }
 
 h1 {
@@ -104,26 +104,87 @@ p + p {
     margin-top: 1rem;
 }
 
+/* Foundation overrides */
+a {
+    color: #FFF;
+}
+
+a:hover {
+    color: #FFF;
+}
+
 .grid-container {
     max-width: 1280px;
 }
 
-header {
+.button {
+    margin-bottom: 0;
+}
+
+.button.success,
+.button.success:hover {
+    color: #FFF;
+}
+
+/* Header */
+header .sticky {
     background-color: #34495e;
+    padding: 0 1rem;
+}
+
+header i {
+    color: #e74c3c;
 }
 
 header .top-bar, header .top-bar ul {
     background-color: transparent;
 }
 
-header .top-bar .top-bar-right p {
-    
+header .top-bar ul li:first-child {
+    font-size: 20px;
+}
+
+header .top-bar ul li:first-child a {
+    padding-left: 0;
+}
+
+header .top-bar .top-bar-right .cell + .cell {
+    margin-left: 1rem;
+}
+
+header .top-bar + header .info-panel {
+    padding-top: 0.5rem;
 }
 
 header .info-panel {
-
+    padding-bottom: 0.5rem;
 }
 
+header .info-panel .menu {
+    color: #FFF;
+}
+
+header .info-panel .menu li + li {
+    padding-left: 1rem;
+}
+
+/* Filter bar */
+.filter-wrapper {
+    padding: 1rem 0;
+}
+
+.filter-wrapper .grid-x > .cell + .cell {
+    margin-left: 1rem;
+}
+
+.filter-wrapper label {
+    font-size: 14px;
+}
+
+.filter-wrapper input, .filter-wrapper select {
+    margin-bottom: 0;
+    font-size: 14px;
+}
 
 .thead-highlight {
   background-color:#dfe4ea;
@@ -138,27 +199,11 @@ table th:last-child{
 }
 
 
-a:link {
-    color: #3498db;
-    text-decoration: none;
-}
-
-a:visited {
-    color: #44b8eb;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: none; 
-    /* background-color:rgba(72, 84, 96,0.2);
-    border-radius:4px;*/
-}
-
-label {
+/* label {
     margin: 0 4px;
-}
+} */
 
-input,textarea,select,button,.btn-primary {
+/* input,textarea,select {
     border: 1px #ccc solid;
     padding: 5px;
     border-radius: 1px;
@@ -167,17 +212,17 @@ input,textarea,select,button,.btn-primary {
     color: #333333;
     text-align: left;
     border-radius:4px;
-}
+} 
 
 button.close:hover {
     background-color: transparent;
-}
+}*/
 
 /*
 input[type=text], input[type=password], input[type="url"], textarea, select {
     padding: 1px;
 }
-*/
+
 
 input.noborder {
     border: 0;
@@ -185,7 +230,7 @@ input.noborder {
 
 input[disabled] {
     color: #888888;
-}
+}*/
 
 img {
   display: inline-block;
@@ -361,7 +406,7 @@ fieldset > legend {
 
 /*
  * Behavior classes
- */
+ 
 .alarm, .errorText, .error {
     color: #ff3f34;
 }
@@ -382,11 +427,11 @@ fieldset > legend {
 .fakelink:hover {
     color: #336699;
     text-decoration: none;
-}
+}*/
 
 /*
  * Generic useful classes, especially with mootools
- */
+ 
 
 .hidden {
     display: none;
@@ -402,7 +447,7 @@ fieldset > legend {
 
 div.clear {
     clear: both;
-}
+}*/
 
 /*
 .table-th-sort {
@@ -439,7 +484,7 @@ th.table-th-sort-rev span.table-th-sort-span {
 /*
  * Primary layout styles
  */
-
+/*
 #page {
     display: flex;
     flex-direction: column;
@@ -490,7 +535,7 @@ th.table-th-sort-rev span.table-th-sort-span {
 
 #content {
     /* width: 96%; */
-    /* margin: 0 auto 8px auto; */
+    /* margin: 0 auto 8px auto; 
     width: 100%;
     padding: 10px 15px;
     line-height: 130%;
@@ -511,13 +556,13 @@ th.table-th-sort-rev span.table-th-sort-span {
     margin-bottom: 8px;
 }
 
-/*
+
 #contentDiv {
     margin: 0 auto 8px;
     line-height: 140%;
     text-align: center;
 }
-*/
+
 
 #content > input[type=submit], #content > input[type=button], #content > button, #content > .btn-primary {
     margin-top: 8px;
@@ -525,7 +570,7 @@ th.table-th-sort-rev span.table-th-sort-span {
 
 #content table input[type=submit], #content table input[type=button], #content table button, #content table .btn-primary {
     margin-top: 1px;
-}
+}*/
 
 #contentButtons {
     margin-top: 8px;
@@ -542,7 +587,7 @@ th.table-th-sort-rev span.table-th-sort-span {
     margin: 8px auto;
 }
 
-button,
+/* button,
 input[type=button],
 input[type=submit],
 .btn-primary,
@@ -567,7 +612,7 @@ input[type=submit]:hover,
 }
 
 
-/* PP - make it easy to identify disabled buttons */
+/* PP - make it easy to identify disabled buttons 
 
 button:disabled,
 input[type=button]:disabled,
@@ -576,7 +621,7 @@ input[type=submit]:disabled,
     background-color: #aaaaaa;    
     border-color: #bbbbbb;
 
-}
+} */
 
 #options {
   font-size:90%;
