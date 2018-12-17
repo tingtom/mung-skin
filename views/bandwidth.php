@@ -34,7 +34,7 @@ if ( $user && !empty($user['MaxBandwidth']) )
 }
 ?>
 
-<div id="modalBandwidth" class="modal fade">
+<div id="modalBandwidth" class="reveal" data-reveal>
     <form class="form-horizontal" name="contentForm" id="contentForm" method="get" action="<?php echo $_SERVER['PHP_SELF'] ?>">
         <div class="modal-dialog">
             <div class="modal-content">
