@@ -22,12 +22,12 @@ function setButtonStates( element ) {
     form.deleteBtn.disabled = false;
     form.selectBtn.disabled = false;
     if ( checked == 1 ) {
-      $(form.cloneBtn).css('display','inline');
+      $(form.cloneBtn).parent().css('display','inline');
     } else {
-      form.cloneBtn.hide();
+      $(form.cloneBtn).parent().hide();
     }
   } else {
-    form.cloneBtn.hide();
+    $(form.cloneBtn).parent().hide();
     form.editBtn.disabled = true;
     form.deleteBtn.disabled = true;
     form.selectBtn.disabled = true;
