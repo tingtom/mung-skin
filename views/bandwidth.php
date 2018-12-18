@@ -43,27 +43,25 @@ if ( $user && !empty($user['MaxBandwidth']) )
             <span aria-hidden="true">&times;</span>
         </button>
 
-        <div class="grid-container">
-            <div class="grid-x grid-padding-x">
-                <div class="cell">
-                    <h2><?php echo translate('Bandwidth') ?></h2>
-                </div>
+        <div class="grid-x grid-padding-x">
+            <div class="cell">
+                <h2><?php echo translate('Bandwidth') ?></h2>
+            </div>
 
-                <div class="cell">
-                    <label for="newBandwidth"><?php echo translate('SetNewBandwidth') ?>
-                        <select id="newBandwidth" name="newBandwidth">
+            <div class="cell">
+                <label for="newBandwidth"><?php echo translate('SetNewBandwidth') ?>
+                    <select id="newBandwidth" name="newBandwidth">
 
 <?php foreach ( $bandwidth_options as $contentValue => $contentText ) { ?>
-    <option value="<?php echo $contentValue ?>"<?php if ( $newBandwidth == $contentValue ) { ?> selected="selected"<?php } ?>><?php echo $contentText ?></option>
+<option value="<?php echo $contentValue ?>"<?php if ( $newBandwidth == $contentValue ) { ?> selected="selected"<?php } ?>><?php echo $contentText ?></option>
 <?php } ?>
-                        
-                        </select>
-                    </label>
-                </div>
+                    
+                    </select>
+                </label>
+            </div>
 
-                <div class="cell grid-x align-right">
-                    <button class="button" type="button" id="btnApplyBandwidth"><?php echo translate('Save') ?></button>
-                </div>
+            <div class="cell grid-x align-right">
+                <button class="button" type="button" id="btnApplyBandwidth"><?php echo translate('Save') ?></button>
             </div>
         </div>
     </form>

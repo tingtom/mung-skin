@@ -169,39 +169,49 @@ xhtmlHeaders( __FILE__, translate('Console') );
     <div class="grid-container">
         <?php echo $filterbar ?>
 
-        <div class="grid-x grid-padding-x align-center status-wrapper">
+        <div class="grid-x align-middle align-justify">
+            <div class="cell grid-x shrink">
 <?php
     $html = '';
     foreach ( array_keys($status_counts) as $status )
     {
-        $html .= '<div class="cell status"><label>'.translate('Status'.$status).'</label>'.round(100*($status_counts[$status]/count($displayMonitors)),1).'%</div>';
+        $html .= '<div class="cell status">'.translate('Status'.$status). " " .round(100*($status_counts[$status]/count($displayMonitors)),1).'%</div>';
     }
     echo $html;
 ?>
-        </div>
+            </div>
 
-        <div class="grid-x">
-            <button type="button" name="addBtn" onclick="addMonitor(this);"
-            <?php echo (canEdit('Monitors') && !$user['MonitorIds']) ? '' : ' disabled="disabled"' ?>
-            >
-            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>&nbsp;<?php echo translate('AddNewMonitor') ?>
-            </button>
+            <div class="cell grid-x grid-margin-x shrink align-right">
+                <div class="cell shrink">
+                    <button class="button" type="button" name="addBtn" onclick="addMonitor(this);"
+                    <?php echo (canEdit('Monitors') && !$user['MonitorIds']) ? '' : ' disabled="disabled"' ?>>
+                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>&nbsp;<?php echo translate('AddNewMonitor') ?>
+                    </button>
+                </div>
 
-            <button type="button" name="cloneBtn" onclick="cloneMonitor(this);"
-            <?php echo (canEdit('Monitors') && !$user['MonitorIds']) ? '' : ' disabled="disabled"' ?>
-            style="display:none;">
-            <span class="glyphicon glyphicon-copy"></span>&nbsp;<?php echo translate('CloneMonitor') ?>
-            </button>
+                <div class="cell shrink" style="display:none;">
+                    <button class="button" type="button" name="cloneBtn" onclick="cloneMonitor(this);"
+                    <?php echo (canEdit('Monitors') && !$user['MonitorIds']) ? '' : ' disabled="disabled"' ?>>
+                    <span class="glyphicon glyphicon-copy"></span>&nbsp;<?php echo translate('CloneMonitor') ?>
+                    </button>
+                </div>
 
-            <button type="button" name="editBtn" onclick="editMonitor(this);" disabled="disabled">
-            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<?php echo translate('Edit') ?>
-            </button>
+                <div class="cell shrink">
+                    <button class="button" type="button" name="editBtn" onclick="editMonitor(this);" disabled="disabled">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<?php echo translate('Edit') ?>
+                    </button>
+                </div>
 
-            <button type="button" name="deleteBtn" onclick="deleteMonitor(this);" disabled="disabled">
-            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;<?php echo translate('Delete') ?>
-            </button>
-            
-            <button type="button" name="selectBtn" onclick="selectMonitor(this);" disabled="disabled"><?php echo translate('Select')?></button>
+                <div class="cell shrink">
+                    <button class="button" type="button" name="deleteBtn" onclick="deleteMonitor(this);" disabled="disabled">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;<?php echo translate('Delete') ?>
+                    </button>
+                </div>
+
+                <div class="cell shrink">
+                    <button class="button" type="button" name="selectBtn" onclick="selectMonitor(this);" disabled="disabled"><?php echo translate('Select')?></button>
+                </div>
+            </div>
         </div>
 
         <?php ob_start(); ?>
