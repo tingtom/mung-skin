@@ -138,6 +138,8 @@ header i {
 
 header .top-bar, header .top-bar ul {
     background-color: transparent;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 header .top-bar ul li:first-child {
