@@ -24,7 +24,7 @@ if ( !canEdit( 'System' ) ) {
 }
 ?>
 <div id="modalState" class="reveal" data-reveal>
-  <form class="form-horizontal" name="contentForm" id="contentForm" method="get" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+  <form name="contentForm" id="contentForm" method="get" action="<?php echo $_SERVER['PHP_SELF'] ?>">
     <input type="hidden" name="view" value="<?php echo $view ?>"/>
     <input type="hidden" name="action" value="state"/>
     <input type="hidden" name="apply" value="1"/>
