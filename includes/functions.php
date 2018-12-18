@@ -127,8 +127,8 @@ if ( file_exists( "skins/$skin/css/$css/graphics/favicon.ico" ) ) {
     });
   </script>
   
-  <script src="skins/<?php echo $skin; ?>/views/js/state.js"></script>
-  <script src="skins/<?php echo $skin; ?>/views/js/bandwidth.js"></script>
+  <!-- <script src="skins/<?php echo $skin; ?>/views/js/state.js"></script> -->
+  <!-- <script src="skins/<?php echo $skin; ?>/views/js/bandwidth.js"></script> -->
 
 <?php
   if ( $title == 'Login' && (defined('ZM_OPT_USE_GOOG_RECAPTCHA') && ZM_OPT_USE_GOOG_RECAPTCHA) ) {
@@ -302,7 +302,10 @@ function getNavBarHTML($reload = null) {
         <div class="top-bar-right">
             <div class="grid-x">
 <?php if ( ZM_OPT_USE_AUTH and $user ) { ?>
-	            <div class="cell shrink"><i class="material-icons">account_circle</i> <?php echo makePopupLink( '?view=logout', 'zmLogout', 'logout', $user['Username'], (ZM_AUTH_TYPE == "builtin") ) ?> </div>
+	            <div class="cell shrink">
+                    <i class="material-icons">account_circle</i>
+                    <a href="#" data-open="modalLogout"><?php echo $user['Username'] ?></a>
+                </div>
 <?php } ?>
 
 <?php if ( canEdit( 'System' ) ) { ?>
@@ -395,6 +398,7 @@ function xhtmlFooter() {
     include("skins/$skin/views/state.php");
   }
   include("skins/$skin/views/bandwidth.php");
+  include("skins/$skin/views/logout.php");
 ?>
   </body>
 

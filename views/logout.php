@@ -18,33 +18,48 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 //
 
-$focusWindow = true;
+//$focusWindow = true;
 
-xhtmlHeaders(__FILE__, translate('Logout') );
+//xhtmlHeaders(__FILE__, translate('Logout') );
+  global $user;
+  global $CLANG;
 ?>
-<body>
-  <div id="page">
-    <div id="header">
-      <h1><?php echo ZM_WEB_TITLE . ' ' . translate('Logout') ?></h1>
-    </div>
-    <div id="content">
-      <form name="contentForm" id="contentForm" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+
+<div id="modalLogout" class="reveal" data-reveal>
+    <form name="contentForm" id="contentForm" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
         <input type="hidden" name="action" value="logout"/>
         <input type="hidden" name="view" value="login"/>
-        <p><?php echo sprintf( $CLANG['CurrentLogin'], $user['Username'] ) ?></p>
-        <p>
-          <input type="submit" value="<?php echo translate('Logout') ?>"/>
-<?php
-if ( ZM_USER_SELF_EDIT ) {
-?>
-          <input type="button" value="<?php echo translate('Config') ?>" onclick="createPopup( '?view=user&amp;uid=<?php echo $user['Id'] ?>', 'zmUser', 'user' );"/>
-<?php
-}
-?>
-          <input type="button" value="<?php echo translate('Cancel') ?>" onclick="closeWindow();"/>
-        </p>
-      </form>
-    </div>
-  </div>
-</body>
-</html>
+
+        <button class="close-button" data-close aria-label="Close modal" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+
+        <div class="grid-x">
+            <div class="cell">
+                <h2><?php echo ZM_WEB_TITLE . ' ' . translate('Logout') ?></h2>
+            </div>
+
+            <div class="cell text-center">
+                <p><?php echo sprintf( $CLANG['CurrentLogin'], $user['Username'] ) ?></p>
+            </div>
+
+            <div class="cell">
+                <div class="grid-x grid-padding-x align-right">
+                    <div class="cell shrink">
+                        <input class="button" type="submit" value="<?php echo translate('Logout') ?>"/>
+                    </div>
+
+<?php if ( ZM_USER_SELF_EDIT ) { ?>
+                    <div class="cell shrink">
+                        <input class="button" type="button" value="<?php echo translate('Config') ?>" onclick="createPopup( '?view=user&amp;uid=<?php echo $user['Id'] ?>', 'zmUser', 'user' );"/>
+                    </div>
+<?php } ?>
+
+                    <div class="cell shrink">
+                        <input data-close class="button" type="button" value="<?php echo translate('Cancel') ?>"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
