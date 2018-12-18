@@ -35,36 +35,34 @@ if ( $user && !empty($user['MaxBandwidth']) )
 ?>
 
 <div id="modalBandwidth" class="reveal" data-reveal>
-    <form class="form-horizontal" name="contentForm" id="contentForm" method="get" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title"><?php echo translate('Bandwidth') ?></h2>
+    <form name="contentForm" id="contentForm" method="get" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+        <input type="hidden" name="view" value="none"/>
+        <input type="hidden" name="action" value="bandwidth"/>
+
+        <button class="close-button" data-close aria-label="Close modal" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+
+        <div class="grid-container">
+            <div class="grid-x grid-padding-x">
+                <div class="cell">
+                    <h2><?php echo translate('Bandwidth') ?></h2>
                 </div>
 
-                <div class="modal-body">
-                    <input type="hidden" name="view" value="none"/>
-                    <input type="hidden" name="action" value="bandwidth"/>
+                <div class="cell">
+                    <label for="newBandwidth"><?php echo translate('SetNewBandwidth') ?>
+                        <select id="newBandwidth" name="newBandwidth">
 
-                    <div class="form-group">
-                        <div class="col-sm-6">
-                            <label for="newBandwidth" class="control-label"><?php echo translate('SetNewBandwidth') ?></label>
-                        </div>
+<?php foreach ( $bandwidth_options as $contentValue => $contentText ) { ?>
+    <option value="<?php echo $contentValue ?>"<?php if ( $newBandwidth == $contentValue ) { ?> selected="selected"<?php } ?>><?php echo $contentText ?></option>
+<?php } ?>
                         
-                        <div class="col-sm-6">
-                            <select id="newBandwidth" name="newBandwidth" class="form-control">
-
-                            <?php foreach ( $bandwidth_options as $contentValue => $contentText ) { ?>
-                                <option value="<?php echo $contentValue ?>"<?php if ( $newBandwidth == $contentValue ) { ?> selected="selected"<?php } ?>><?php echo $contentText ?></option>
-                            <?php } ?>
-                            
-                            </select>
-                        </div>
-                    </div>
+                        </select>
+                    </label>
                 </div>
 
-                <div class="modal-footer">
-                    <button class="btn btn-primary" type="button" id="btnApplyBandwidth"><?php echo translate('Save') ?></button>
+                <div class="cell grid-x align-right">
+                    <button class="button" type="button" id="btnApplyBandwidth"><?php echo translate('Save') ?></button>
                 </div>
             </div>
         </div>
