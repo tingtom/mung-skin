@@ -33,54 +33,52 @@ if ( !canEdit( 'System' ) ) {
         <span aria-hidden="true">&times;</span>
     </button>
 
-    <div class="grid-container">
-        <div class="grid-x grid-padding-x">
-            <div class="cell">
-                <h2><?php echo translate('RunState') ?></h2>
-            </div>
+    <div class="grid-x grid-padding-x">
+        <div class="cell">
+            <h2><?php echo translate('RunState') ?></h2>
+        </div>
 
-            <div class="cell">
-                <label for="runState">Change State
-                    <select id="runState" name="runState">
+        <div class="cell">
+            <label for="runState">Change State
+                <select id="runState" name="runState">
 <?php if ( $running ) { ?>
-                        <option value="stop" selected="selected"><?php echo translate('Stop') ?></option>
-                        <option value="restart"><?php echo translate('Restart') ?></option>
+                    <option value="stop" selected="selected"><?php echo translate('Stop') ?></option>
+                    <option value="restart"><?php echo translate('Restart') ?></option>
 <?php } else { ?>
-                        <option value="start" selected="selected"><?php echo translate('Start') ?></option>
+                    <option value="start" selected="selected"><?php echo translate('Start') ?></option>
 <?php }
 $states = dbFetchAll( 'SELECT * FROM States' );
 foreach ( $states as $state ) {
 ?>
-                        <option value="<?php echo $state['Name'] ?>"><?php echo $state['Name'] ?></option>
+                    <option value="<?php echo $state['Name'] ?>"><?php echo $state['Name'] ?></option>
 <?php } ?>
-                    </select>
-                </label>
+                </select>
+            </label>
+        </div>
+
+        <div class="cell">
+            <label for="newState"><?php echo translate('NewState') ?>
+                <input type="text" id="newState"/>
+            </label>
+        </div>
+
+        <div class="cell grid-x align-justify align-middle">
+            <div class="cell shrink text-left">
+                <p class="hide" id="pleasewait"><?php echo translate('PleaseWait') ?></p>
             </div>
 
-            <div class="cell">
-                <label for="newState"><?php echo translate('NewState') ?>
-                    <input type="text" id="newState"/>
-                </label>
-            </div>
+            <div class="cell shrink">
+                <div class="grid-x grid-padding-x align-right">
+                    <div class="cell shrink">
+                        <button class="button" type="button" id="btnApply"><?php echo translate('Apply') ?></button>
+                    </div>
 
-            <div class="cell grid-x align-justify align-middle">
-                <div class="cell shrink text-left">
-                    <p class="hide" id="pleasewait"><?php echo translate('PleaseWait') ?></p>
-                </div>
+                    <div class="cell shrink">
+                        <button class="button" type="button" id="btnSave" disabled><?php echo translate('Save') ?></button>
+                    </div>
 
-                <div class="cell shrink">
-                    <div class="grid-x grid-padding-x align-right">
-                        <div class="cell shrink">
-                            <button class="button" type="button" id="btnApply"><?php echo translate('Apply') ?></button>
-                        </div>
-
-                        <div class="cell shrink">
-                            <button class="button" type="button" id="btnSave" disabled><?php echo translate('Save') ?></button>
-                        </div>
-
-                        <div class="cell shrink">
-                            <button class="button" type="button" id="btnDelete" disabled><?php echo translate('Delete') ?></button>
-                        </div>
+                    <div class="cell shrink">
+                        <button class="button" type="button" id="btnDelete" disabled><?php echo translate('Delete') ?></button>
                     </div>
                 </div>
             </div>
