@@ -75,7 +75,8 @@ function logResponse( respObj ) {
               if ( !firstLoad ) {
                 var color = document.defaultView.getComputedStyle(row.tr, null).getPropertyValue('color');
                 var colorParts = color.match(/^rgb.*\((\d+),\s*(\d+),\s*(\d+)/);
-                rowOrigColor = '#' + parseInt(colorParts[1]).toString(16) + parseInt(colorParts[2]).toString(16) + parseInt(colorParts[3]).toString(16);
+                if(colorParts)
+                    rowOrigColor = '#' + parseInt(colorParts[1]).toString(16) + parseInt(colorParts[2]).toString(16) + parseInt(colorParts[3]).toString(16);
                 //new Fx.Tween( row.tr, { duration: 10000, transition: Fx.Transitions.Sine } ).start( 'color', '#6495ED', rowOrigColor );
               }
             }
@@ -226,8 +227,8 @@ function exportRequest() {
 function updateFilterSelectors() {
   Object.each(options,
     function( values, key ) {
-      var selector = $('filter['+key+']');
-      if ( ! selector ) {
+      var selector = $('#filter['+key+']');
+      if ( selector.length <= 0 ) {
         if ( window.console && window.console.log ) {
           window.console.log("No selector found for " + key );
         }
