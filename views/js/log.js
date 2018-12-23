@@ -81,8 +81,7 @@ function logResponse( respObj ) {
             }
         );
         if ( typeof(respObj.options) == 'object' ) {
-          $j.each( respObj.options,
-            function( field ) {
+          $(respObj.options).each(function( field ) {
               if ( options[field] )
                 options[field] = Object.assign(options[field], respObj.options[field]);
               else
@@ -91,15 +90,15 @@ function logResponse( respObj ) {
           );
         }
         updateFilterSelectors();
-        $('lastUpdate').set('text', respObj.updated);
-        $('logState').set('text', respObj.state);
-        $('logState').removeClass('ok');
-        $('logState').removeClass('alert');
-        $('logState').removeClass('alarm');
-        $('logState').addClass(respObj.state);
-        $('totalLogs').set('text', respObj.total);
-        $('availLogs').set('text', respObj.available);
-        $('displayLogs').set('text', logCount);
+        $('#lastUpdate').text(respObj.updated);
+        $('#logState').text(respObj.state);
+        $('#logState').removeClass('ok');
+        $('#logState').removeClass('alert');
+        $('#logState').removeClass('alarm');
+        $('#logState').addClass(respObj.state);
+        $('#totalLogs').text(respObj.total);
+        $('#availLogs').text(respObj.available);
+        $('#displayLogs').text(logCount);
         if ( firstLoad ) {
           if ( logCount < displayLimit )
             fetchPrevLogs();
@@ -144,7 +143,7 @@ function clearLog() {
   logCount = 0;
   logTimeout = maxSampleTime;
   displayLimit = initialDisplayLimit;
-  $('displayLogs').set('text', logCount);
+  $('#displayLogs').text(logCount);
   options = {};
   logTable.empty();
 }
@@ -153,7 +152,7 @@ function filterLog() {
   filter = {};
   filterFields.each(
       function( field ) {
-        var selector = $('filter['+field+']');
+        var selector = $("#filter[" + field + "]");
         if ( ! selector ) {
           if ( window.console && window.console.log ) {
             window.console.log("No selector found for " + field );
@@ -188,16 +187,16 @@ function exportResponse( response ) {
 }
 
 function exportFail( request ) {
-  $('exportLog').unspin();
-  $('exportErrorText').set('text', request.status+" / "+request.statusText );
-  $('exportError').show();
+  $('#exportLog').unspin();
+  $('#exportErrorText').set('text', request.status+" / "+request.statusText );
+  $('#exportError').show();
   Error( "Export request failed: "+request.status+" / "+request.statusText );
 }
 
 function exportRequest() {
-  var form = $('exportForm');
-  $('exportErrorText').set('text', "" );
-  $('exportError').hide();
+  var form = $('#exportForm');
+  $('#exportErrorText').set('text', "" );
+  $('#exportError').hide();
   if ( form.validate() ) {
     var exportParms = "view=request&request=log&task=export";
     var exportReq = new Request.JSON( { url: thisUrl, method: 'post', link: 'cancel', onSuccess: exportResponse, onFailure: exportFail } );
@@ -220,7 +219,7 @@ function exportRequest() {
       }
     }
     exportReq.send( exportParms+"&"+form.toQueryString() );
-    $('exportLog').spin();
+    $('#exportLog').spin();
   }
 }
 
@@ -261,11 +260,11 @@ function updateFilterSelectors() {
   );
 }
 
-function initPage() {
+$(document).ready(function() {
   displayLimit = initialDisplayLimit;
   for ( var i = 1; i <= 9; i++ )
     logCodes[''+i] = 'DB'+i;
-  logTable = new HtmlTable( $('logTable'),
+  logTable = new HtmlTable( $("#logTable"),
       {
         zebra: true,
         sortable: true,
@@ -288,18 +287,15 @@ function initPage() {
           rows[i].destroy();
           logCount--;
         }
-        $('displayLogs').set('text', logCount);
+        $("#displayLogs").set('text', logCount);
       } // end if loCount > displayLimit
     }
   );
-  exportFormValidator = new Form.Validator.Inline($('exportForm'), {
+  exportFormValidator = new Form.Validator.Inline($("#exportForm")[0], {
     useTitles: true,
     warningPrefix: "",
     errorPrefix: ""
   });
   new Asset.css( "css/spinner.css" );
   fetchNextLogs();
-}
-
-// Kick everything off
-window.addEvent( 'domready', initPage );
+});
