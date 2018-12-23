@@ -43,13 +43,27 @@ xhtmlHeaders(__FILE__, translate('SystemLog') );
           </td>
         </tr>
         <tr class="row">
-	        <td class="col text-center">
-            <div class="btn-group">
-              <button type="button" class="btn btn-sm" onclick="expandLog()"> <?php echo translate('More') ?></button>
-              <button type="button" class="btn btn-sm" onclick="clearLog()"> <?php echo translate('Clear') ?></button>
-              <button type="button" class="btn btn-sm" onclick="refreshLog()"> <?php echo translate('Refresh') ?></button>
-              <button type="button" class="btn btn-sm" onclick="exportLog()"> <?php echo translate('Export') ?></button>
-              <button type="button" class="btn btn-sm" onclick="closeWindow()"> <?php echo translate('Close') ?></button>
+	        <td class="col">
+            <div class="grid-x grid-padding-x align-center">
+                <div class="cell shrink">
+                    <button type="button" class="button" onclick="expandLog()"> <?php echo translate('More') ?></button>
+                </div>
+
+                <div class="cell shrink">
+                    <button type="button" class="button" onclick="clearLog()"> <?php echo translate('Clear') ?></button>
+                </div>
+                
+                <div class="cell shrink">
+                    <button type="button" class="button" onclick="refreshLog()"> <?php echo  translate('Refresh') ?></button>
+                </div>
+                
+                <div class="cell shrink">
+                    <button type="button" class="button" onclick="exportLog()"> <?php echo translate('Export') ?></button>
+                </div>
+
+                <div class="cell shrink">
+                    <button type="button" class="button" onclick="closeWindow()"> <?php echo translate('Close') ?></button>
+                </div>
             </div> <!--btn-->
           </td>
       </tr>
