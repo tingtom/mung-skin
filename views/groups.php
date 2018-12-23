@@ -44,21 +44,22 @@ foreach ( $Groups as $id=>$Group ) {
 xhtmlHeaders(__FILE__, translate('Groups'));
 ?>
 <body>
-  <div id="page">
     <?php echo $navbar = getNavBarHTML(); ?>
-    <div id="content">
-      <form name="groupsForm" method="get" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-        <input type="hidden" name="view" value="none"/>
-        <input type="hidden" name="action" value="setgroup"/>
+
+    <form name="groupsForm" method="get" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+    <input type="hidden" name="view" value="none"/>
+    <input type="hidden" name="action" value="setgroup"/>
+
+    <div class="grid-container">
         <table id="contentTable" class="major">
-          <thead class="thead-highlight">
-            <tr>
-              <th class="colName" colspan="<?php echo $max_depth ?>"><?php echo translate('Name') ?></th>
-              <th class="colIds"><?php echo translate('Monitors') ?></th>
-              <th class="colSelect"><?php echo translate('Mark') ?></th>
-            </tr>
-          </thead>
-          <tbody>
+            <thead class="thead-highlight">
+                <tr>
+                    <th class="colName" colspan="<?php echo $max_depth ?>"><?php echo translate('Name') ?></th>
+                    <th class="colIds"><?php echo translate('Monitors') ?></th>
+                    <th class="colSelect"><?php echo translate('Mark') ?></th>
+                </tr>
+            </thead>
+            <tbody>
 <?php
 function group_line( $Group ) {
   global $children;
@@ -90,18 +91,23 @@ if ( isset( $children[null] ) )
     echo "<tr><td colspan='3'><p class='text-center' style='margin:2px 0'>".translate("NoneAvailable")."</p></td></tr>";
 }
 ?>
-          </tbody>
-        </table>
-        <div id="contentButtons">
-          <button type="button" value="New" onclick="newGroup();"<?php echo canEdit('Groups')?'':' disabled="disabled"' ?>>
-          <?php echo translate('New') ?>
-          </button>
-          <button type="button" name="deleteBtn" value="Delete" onclick="deleteGroup(this);" disabled="disabled">
-          <?php echo translate('Delete') ?>
-          </button>
-        </div>
-      </form>
+                </tbody>
+            </table>
+
+            <div id="contentButtons" class="grid-x grid-padding-x align-right">
+                <div class="cell shrink">
+                    <button type="button" value="New" onclick="newGroup();"<?php echo canEdit('Groups')?'':' disabled="disabled"' ?> class="button success">
+                        <?php echo translate('New') ?>
+                    </button>
+                </div>
+
+                <div class="cell shrink">
+                    <button type="button" name="deleteBtn" value="Delete" onclick="deleteGroup(this);" disabled="disabled" class="button alert">
+                        <?php echo translate('Delete') ?>
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
-  </div>
 </body>
 </html>
