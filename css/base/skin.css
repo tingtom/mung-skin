@@ -63,6 +63,18 @@ p + p {
     margin-top: 1rem;
 }
 
+.ok, .infoText {
+    color: #0fb9b1;
+}
+
+.alert, .warnText, .warning {
+    color: #ffa801;
+}
+
+.alarm, .errorText, .error {
+    color: #ff3f34;
+}
+
 /* Foundation overrides */
 a {
     color: #FFF;
