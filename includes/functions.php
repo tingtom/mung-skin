@@ -74,6 +74,7 @@ if ( file_exists( "skins/$skin/css/$css/graphics/favicon.ico" ) ) {
 ?>
   <link rel="stylesheet" href="css/overlay.css" type="text/css"/>
   <link rel="stylesheet" href="skins/<?php echo $skin; ?>/css/foundation.min.css" type="text/css"/>
+  <link rel="stylesheet" href="skins/<?php echo $skin; ?>/css/font-awesome.min.css" type="text/css"/>
   
 <?php 
     $links = array(
@@ -113,11 +114,12 @@ if ( file_exists( "skins/$skin/css/$css/graphics/favicon.ico" ) ) {
 <?php } ?>
 
   <script src="tools/mootools/mootools-core.js"></script>
+  <script src="tools/mootools/mootools-more.js"></script>
   <script src="skins/<?php echo $skin; ?>/js/jquery.js"></script>
   <script src="skins/<?php echo $skin; ?>/js/jquery-ui-1.12.1/jquery-ui.js"></script>
   <script src="skins/<?php echo $skin; ?>/js/dateTimePicker/jquery-ui-timepicker-addon.js"></script>
 
-  <script>
+  <!-- <script>
     $(document).ready(function(){
         $("#flip").click(function() {
             $("#panel").slideToggle("slow");
@@ -125,7 +127,7 @@ if ( file_exists( "skins/$skin/css/$css/graphics/favicon.ico" ) ) {
             Cookie.write( 'zmHeaderFlip', $('#flip').hasClass('glyphicon-menu-up') ? 'up' : 'down', { duration: 10*365 } );
         });
     });
-  </script>
+  </script> -->
   
   <!-- <script src="skins/<?php echo $skin; ?>/views/js/state.js"></script> -->
   <!-- <script src="skins/<?php echo $skin; ?>/views/js/bandwidth.js"></script> -->
@@ -293,8 +295,6 @@ function getNavBarHTML($reload = null) {
 <?php } ?>
 
         <li><a href="?view=report_event_audit"<?php echo $view=='report_event_audit'?' class="selected"':''?>><?php echo translate('ReportEventAudit') ?></a></li>
-        
-        <li><a href="#"><span id="flip" class="glyphicon glyphicon-menu-<?php echo ( isset($_COOKIE['zmHeaderFlip']) and $_COOKIE['zmHeaderFlip'] == 'down') ? 'down' : 'up' ?> pull-right"></span></a></li>
 <?php } ?>
             </ul>
         </div>
@@ -303,14 +303,14 @@ function getNavBarHTML($reload = null) {
             <div class="grid-x">
 <?php if ( ZM_OPT_USE_AUTH and $user ) { ?>
 	            <div class="cell shrink">
-                    <i class="material-icons">account_circle</i>
+                    <i class="fa fa-user"></i>
                     <a href="#" data-open="modalLogout"><?php echo $user['Username'] ?></a>
                 </div>
 <?php } ?>
 
 <?php if ( canEdit( 'System' ) ) { ?>
             <div class="cell shrink">
-                <i class="material-icons">power</i>
+                <i class="fa fa-power-off"></i>
                 <a href="#" data-open="modalState"><?php echo $status ?></a>
             </div>
             <!-- <button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#modalState"></button> -->
@@ -326,12 +326,12 @@ function getNavBarHTML($reload = null) {
 ?>
     <div class="grid-x align-justify info-panel" <?php echo ( isset($_COOKIE['zmHeaderFlip']) and $_COOKIE['zmHeaderFlip'] == 'down' ) ? 'style="display:none;"' : '' ?>>
         <div class="cell shrink">
-            <a href="#" data-open="modalBandwidth"><i class='material-icons md-18'>network_check</i>&nbsp;<?php echo $bandwidth_options[$_COOKIE['zmBandwidth']] ?></a>
+            <a href="#" data-open="modalBandwidth"><i class='fa fa-wifi'></i>&nbsp;<?php echo $bandwidth_options[$_COOKIE['zmBandwidth']] ?></a>
         </div>
 
         <div class="cell shrink">
             <ul class="menu">
-                <li class="Load"><i class="material-icons md-18">trending_up</i>&nbsp;<?php echo translate('Load') ?>: <?php echo getLoad() ?></li>
+                <li class="Load"><i class="fa fa-chart-line"></i>&nbsp;<?php echo translate('Load') ?>: <?php echo getLoad() ?></li>
 
 <?php
 $connections = dbFetchOne( "SHOW status WHERE variable_name='threads_connected'", 'Value' );
@@ -340,7 +340,7 @@ $percent_used = 100 * $connections / $max_connections;
 echo '<li'. ( $percent_used > 90 ? ' class="warning"' : '' ).'>'.translate('DB').':'.$connections.'/'.$max_connections.'</li>';
 ?>
 
-                <li><i class="material-icons md-18">storage</i><?php echo translate('Storage') ?>:
+                <li><i class="fa fa-hdd"></i>&nbsp;<?php echo translate('Storage') ?>:
 
 <?php
   $storage_areas = Storage::find();
