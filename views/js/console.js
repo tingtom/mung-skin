@@ -125,8 +125,9 @@ function initPage() {
   // Makes table sortable
   $(function() {
     $( "#consoleTableBody" ).sortable({
-        handle: ".glyphicon-sort",
+        handle: ".colSort.handle",
         update: applySort,
+        containment: ".consoleTable",
         axis:'Y' } );
     $( "#consoleTableBody" ).disableSelection();
   });

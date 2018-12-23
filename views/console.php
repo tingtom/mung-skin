@@ -185,26 +185,26 @@ xhtmlHeaders( __FILE__, translate('Console') );
                 <div class="cell shrink">
                     <button class="button" type="button" name="addBtn" onclick="addMonitor(this);"
                     <?php echo (canEdit('Monitors') && !$user['MonitorIds']) ? '' : ' disabled="disabled"' ?>>
-                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>&nbsp;<?php echo translate('AddNewMonitor') ?>
+                    <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;<?php echo translate('AddNewMonitor') ?>
                     </button>
                 </div>
 
                 <div class="cell shrink" style="display:none;">
                     <button class="button" type="button" name="cloneBtn" onclick="cloneMonitor(this);"
                     <?php echo (canEdit('Monitors') && !$user['MonitorIds']) ? '' : ' disabled="disabled"' ?>>
-                    <span class="glyphicon glyphicon-copy"></span>&nbsp;<?php echo translate('CloneMonitor') ?>
+                    <i class="fa fa-clone"></i>&nbsp;<?php echo translate('CloneMonitor') ?>
                     </button>
                 </div>
 
                 <div class="cell shrink">
                     <button class="button" type="button" name="editBtn" onclick="editMonitor(this);" disabled="disabled">
-                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<?php echo translate('Edit') ?>
+                    <i class="fa fa-edit" aria-hidden="true"></i>&nbsp;<?php echo translate('Edit') ?>
                     </button>
                 </div>
 
                 <div class="cell shrink">
                     <button class="button" type="button" name="deleteBtn" onclick="deleteMonitor(this);" disabled="disabled">
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;<?php echo translate('Delete') ?>
+                    <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;<?php echo translate('Delete') ?>
                     </button>
                 </div>
 
@@ -216,18 +216,18 @@ xhtmlHeaders( __FILE__, translate('Console') );
 
         <?php ob_start(); ?>
 
-        <table class="table table-striped table-hover table-condensed consoleTable">
+        <table class="consoleTable">
             <thead class="thead-highlight">
             <tr>
     <?php if ( ZM_WEB_ID_ON_CONSOLE ) { ?>
                 <th class="colId"><?php echo translate('Id') ?></th>
     <?php } ?>
-                <th class="colName"><i class="material-icons md-18">videocam</i>&nbsp;<?php echo translate('Name') ?></th>
+                <th class="colName"><i class="fa fa-video"></i>&nbsp;<?php echo translate('Name') ?></th>
                 <th class="colFunction"><?php echo translate('Function') ?></th>
     <?php if ( count($servers) ) { ?>
                 <th class="colServer"><?php echo translate('Server') ?></th>
     <?php } ?>
-                <th class="colSource"><i class="material-icons md-18">settings</i>&nbsp;<?php echo translate('Source') ?></th>
+                <th class="colSource"><i class="fa fa-cog"></i>&nbsp;<?php echo translate('Source') ?></th>
     <?php if ( $show_storage_areas ) { ?>
                 <th class="colStorage"><?php echo translate('Storage') ?></th>
     <?php }
@@ -237,8 +237,9 @@ xhtmlHeaders( __FILE__, translate('Console') );
     ?>
                 <th class="colZones"><?php echo translate('Zones') ?></th>
     <?php if ( canEdit('Monitors') ) { ?>
-                <th class="colMark"><input type="checkbox" name="toggleCheck" value="1" onclick="toggleCheckbox(this, 'markMids[]');setButtonStates(this);"/> <?php echo translate('All') ?></th>
+                <th class="colMark"><input type="checkbox" name="toggleCheck" value="1" onclick="toggleCheckbox(this, 'markMids[]');setButtonStates(this);"/></th>
     <?php } ?>
+                <th class="colSort"></th>
             </tr>
             </thead>
 
@@ -274,7 +275,7 @@ xhtmlHeaders( __FILE__, translate('Console') );
     else
         $fclass = 'infoText';
     if ( !$monitor['Enabled'] )
-        $fclass .= ' disabledText';
+        $fclass .= ' disabled';
     $scale = max(reScale(SCALE_BASE, $monitor['DefaultScale'], ZM_WEB_DEFAULT_SCALE), SCALE_BASE);
     $stream_available = canView('Stream') and $monitor['Type']=='WebSite' or ($monitor['CaptureFPS'] && $monitor['Function'] != 'None');
     $dot_class=$source_class;
@@ -283,11 +284,8 @@ xhtmlHeaders( __FILE__, translate('Console') );
     if ( ZM_WEB_ID_ON_CONSOLE ) {
     ?>
                 <td class="colId"><a <?php echo ($stream_available ? 'href="?view=watch&amp;mid='.$monitor['Id'].'">' : '>') . $monitor['Id'] ?></a></td>
-    <?php
-    }
-    ?>
-                <td class="colName">
-                <span class="glyphicon glyphicon-dot <?php echo $dot_class ?>"  aria-hidden="true"></span><a <?php echo ($stream_available ? 'href="?view=watch&amp;mid='.$monitor['Id'].'">' : '>') . $monitor['Name'] ?></a><br/><div class="small text-nowrap text-muted">
+    <?php } ?>
+                <td class="colName"><i class="fa fa-circle <?php echo $dot_class ?>"></i><a <?php echo ($stream_available ? 'href="?view=watch&amp;mid='.$monitor['Id'].'">' : '>') . $monitor['Name'] ?></a><br/><div class="small text-nowrap text-muted">
                 <?php echo implode('<br/>',
                     array_map(function($group_id){
                         $Group = Group::find_one(array('Id'=>$group_id));
@@ -343,11 +341,9 @@ xhtmlHeaders( __FILE__, translate('Console') );
     ?>
                 <td class="colMark">
                 <input type="checkbox" name="markMids[]" value="<?php echo $monitor['Id'] ?>" onclick="setButtonStates( this )"<?php if ( !canEdit( 'Monitors' ) ) { ?> disabled="disabled"<?php } ?>/>
-                <span class="glyphicon glyphicon-sort"></span>
                 </td>
-    <?php
-    }
-    ?>
+    <?php } ?>
+                <td class="colSort handle"><i class="fa fa-sort"></i></td>
             </tr>
     <?php
     } # end for each monitor
@@ -381,6 +377,7 @@ xhtmlHeaders( __FILE__, translate('Console') );
     <?php if ( canEdit('Monitors') ) { ?>
                 <td class="colMark"></td>
     <?php } ?>
+                <td class="colSort"></td>
             </tr>
             </tfoot>
         </table>
