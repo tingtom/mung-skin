@@ -76,10 +76,11 @@ if ( $tab == 'skins' ) {
 ?>
 <body>
   <?php echo getNavBarHTML(); ?>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-2 sidebar">
-        <ul class="nav nav-pills nav-stacked">
+
+  <div class="grid-container full">
+    <div class="grid-x grid-padding-x">
+      <div class="cell small-2 sidebar">
+        <ul>
 <?php
 foreach ( $tabs as $name=>$value ) {
 ?>
@@ -89,43 +90,50 @@ foreach ( $tabs as $name=>$value ) {
 ?>
         </ul>
       </div>
-      <div class="col-sm-10 col-sm-offset-2">
+      <div class="cell small-10">
         <br/>
         <div id="options">
 <?php 
 if ( $tab == 'skins' ) {
 ?>
-          <form name="optionsForm" class="form-horizontal" method="get" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+          <form name="optionsForm" method="get" action="<?php echo $_SERVER['PHP_SELF'] ?>">
             <input type="hidden" name="view" value="<?php echo $view ?>"/>
             <input type="hidden" name="tab" value="<?php echo $tab ?>"/>
-            <div class="form-group">
-              <label for="skin-choice" class="col-sm-3 control-label">SKIN</label>
-              <div class="col-sm-6">
-                <select name="skin-choice" class="form-control chosen">
+
+            <div class="group grid-x align-middle grid-padding-x">
+                <label for="skin-choice" class="cell auto">SKIN
+                    <select name="skin-choice" class="form-control chosen">
 <?php
 foreach ( $skin_options as $dir ) {
   echo '<option value="'.$dir.'" '.($current_skin==$dir ? 'SELECTED="SELECTED"' : '').'>'.$dir.'</option>';
-}
-?>
-                </select>
-                <span class="help-block"><?php echo translate('SkinDescription'); ?></span>
-              </div>
+} ?>
+                    </select>
+                </label>
+
+                <div class="cell auto text-right">
+                    <?php echo translate('SkinDescription'); ?>
+                </div>
             </div>
-            <div class="form-group">
-              <label for="css-choice" class="col-sm-3 control-label">CSS</label>
-              <div class="col-sm-6">
-                <select name="css-choice" class="form-control chosen">
+
+            <div class="group grid-x align-middle grid-padding-x">
+                <label for="css-choice" class="cell auto">CSS
+                    <select name="css-choice" class="form-control chosen">
 <?php
 foreach ( array_map('basename', glob('skins/'.$current_skin.'/css/*',GLOB_ONLYDIR)) as $dir ) {
   echo '<option value="'.$dir.'" '.($current_css==$dir ? 'SELECTED="SELECTED"' : '').'>'.$dir.'</option>';
 }
 ?>
-                </select>
-                <span class="help-block"><?php echo translate('CSSDescription'); ?></span>
+                    </select>
+                </label>
+
+                <div class="cell auto text-right">
+                    <?php echo translate('CSSDescription'); ?>
+                </div>
               </div>
             </div>
-            <div id="contentButtons">
-              <button value="Save" type="submit"<?php echo $canEdit?'':' disabled="disabled"' ?>><?php echo translate('Save') ?></button>
+
+            <div id="contentButtons" class="grid-x align-right">
+              <button value="Save" class="cell shrink button success" type="submit"<?php echo $canEdit?'':' disabled="disabled"' ?>><?php echo translate('Save') ?></button>
             </div>
          </form>
 	
@@ -312,9 +320,8 @@ foreach ( array_map('basename', glob('skins/'.$current_skin.'/css/*',GLOB_ONLYDI
         $shortName = preg_replace( '/^ZM_/', '', $name );
         $optionPromptText = !empty($OLANG[$shortName])?$OLANG[$shortName]['Prompt']:$value['Prompt'];
 ?>
-            <div class="form-group">
-              <label for="<?php echo $name ?>" class="col-sm-3 control-label"><?php echo $shortName ?></label>
-              <div class="col-sm-6">
+            <div class="grid-x align-middle grid-padding-x group">
+              <label for="<?php echo $name ?>" class="cell auto"><?php echo $shortName ?>
 <?php   
         if ( $value['Type'] == 'boolean' ) {
 ?>
@@ -385,14 +392,15 @@ foreach ( array_map('basename', glob('skins/'.$current_skin.'/css/*',GLOB_ONLYDI
 <?php
         }
 ?>
-              <span class="help-block"><?php echo validHtmlStr($optionPromptText) ?>&nbsp;(<?php echo makePopupLink( '?view=optionhelp&amp;option='.$name, 'zmOptionHelp', 'optionhelp', '?' ) ?>)</span>
-	    </div><!-- End .col-sm-9 -->
+</label>
+              <div class="cell auto text-right"><?php echo validHtmlStr($optionPromptText) ?>&nbsp;(<?php echo makePopupLink( '?view=optionhelp&amp;option='.$name, 'zmOptionHelp', 'optionhelp', '?' ) ?>)</div>
+            <!-- End .col-sm-9 -->
             </div><!-- End .form-group -->
 <?php
     }
 ?>
-        <div id="contentButtons">
-          <button type="submit" value="Save"<?php echo $canEdit?'':' disabled="disabled"' ?>><?php echo translate('Save') ?></button>
+        <div id="contentButtons" class="grid-x align-right">
+          <button type="submit" class="cell shrink button success" value="Save"<?php echo $canEdit?'':' disabled="disabled"' ?>><?php echo translate('Save') ?></button>
         </div>
       </form>
 <?php
