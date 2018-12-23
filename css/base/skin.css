@@ -533,16 +533,6 @@ th.table-th-sort-rev span.table-th-sort-span {
     margin-top: 1px;
 }*/
 
-#contentButtons {
-    margin-top: 8px;
-    float: right;
-}
-
-#contentButtons input {
-    margin-left: 8px;
-    margin-bottom: 4px;
-}
-
 #footer {
     width: 96%;
     margin: 8px auto;
