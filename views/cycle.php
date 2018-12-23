@@ -66,31 +66,41 @@ noCacheHeaders();
 xhtmlHeaders(__FILE__, translate('CycleWatch'));
 ?>
 <body>
-  <div id="page">
-    <?php echo $navbar = getNavBarHTML(); ?>
-    <div id="header">
-      <div id="headerButtons">
-<?php if ( $mode == 'stream' ) { ?>
-        <a href="?view=<?php echo $view ?>&amp;mode=still&amp;mid=<?php echo $monitor ? $monitor->Id() : '' ?>"><?php echo translate('Stills') ?></a>
-<?php } else { ?>
-        <a href="?view=<?php echo $view ?>&amp;mode=stream&amp;mid=<?php echo $monitor ? $monitor->Id() : '' ?>"><?php echo translate('Stream') ?></a>
-<?php } ?>
-      </div>
-      <div class="controlHeader">
-        <form method="get">
-          <input type="hidden" name="view" value="cycle"/>
-          <?php echo $filterbar ?>
-        </form>
-      </div>
+    <div class="grid-y grid-frame">
+        <div class="cell shrink">
+            <?php echo $navbar = getNavBarHTML(); ?>
+        </div>
+    
+        <div class="cell auto">
+            <div id="header" class="grid-x">
+                <div id="headerButtons">
+            <?php if ( $mode == 'stream' ) { ?>
+                    <a href="?view=<?php echo $view ?>&amp;mode=still&amp;mid=<?php echo $monitor ? $monitor->Id() : '' ?>"><?php echo translate('Stills') ?></a>
+            <?php } else { ?>
+                    <a href="?view=<?php echo $view ?>&amp;mode=stream&amp;mid=<?php echo $monitor ? $monitor->Id() : '' ?>"><?php echo translate('Stream') ?></a>
+            <?php } ?>
+                </div>
+
+                <div class="controlHeader">
+                    <form method="get">
+                        <input type="hidden" name="view" value="cycle"/>
+                        <?php echo $filterbar ?>
+                    </form>
+                </div>
+            </div>
+
+            <div id="content" class="grid-x align-middle align-center">
+                <div class="cell shrink">
+            <?php 
+                if ( $monitor ) {
+                    echo getStreamHTML($monitor, array('scale'=>$scale, 'mode'=>$mode, 'width'=>'auto'));
+                } else {
+                    echo "There are no monitors to view.";
+                }
+            ?>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="content">
-      <?php 
-        if ( $monitor ) {
-          echo getStreamHTML($monitor, array('scale'=>$scale, 'mode'=>$mode, 'width'=>'auto'));
-        } else {
-          echo "There are no monitors to view.";
-        }
-      ?>
-    </div>
-  </div>
-<?php xhtmlFooter() ?>
+    
+    <?php xhtmlFooter() ?>
