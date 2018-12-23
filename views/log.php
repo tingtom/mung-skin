@@ -32,13 +32,27 @@ xhtmlHeaders(__FILE__, translate('SystemLog') );
     <div id="header">
       <table class="table">
      	  <tr class="row">
-          <td class="col text-center">
-		        <div id="logSummary">
-            <?php echo translate('State') ?>: <span id="logState"></span>/
-            <?php echo translate('Total') ?>: <span id="totalLogs"></span>/
-            <?php echo translate('Available') ?>: <span id="availLogs"></span>/
-            <?php echo translate('Displaying') ?>: <span id="displayLogs"></span>/
-            <?php echo translate('Updated') ?>: <span id="lastUpdate"></span>
+          <td class="col">
+            <div id="logSummary" class="grid-x grid-padding-x align-center">
+                <div class="cell shrink">
+                    <?php echo translate('State') ?>: <span id="logState"></span>
+                </div>
+
+                <div class="cell shrink">
+                    <?php echo translate('Total') ?>: <span id="totalLogs"></span>
+                </div>
+                
+                <div class="cell shrink">
+                    <?php echo translate('Available') ?>: <span id="availLogs"></span>
+                </div>
+
+                <div class="cell shrink">
+                    <?php echo translate('Displaying') ?>: <span id="displayLogs"></span>
+                </div>
+                
+                <div class="cell shrink">
+                    <?php echo translate('Updated') ?>: <span id="lastUpdate"></span>
+                </div>
             </div>
           </td>
         </tr>
@@ -70,10 +84,9 @@ xhtmlHeaders(__FILE__, translate('SystemLog') );
 	  </table>
 
   </div> <!--header-->
-  <div id="content">
+  <div id="content" class="grid-container">
     <div id="filters">
-
-      <table class="table-condensed">
+      <table>
         <tr class="row">
           <td class="col">
             <?php echo translate('Component') ?>
@@ -103,7 +116,9 @@ xhtmlHeaders(__FILE__, translate('SystemLog') );
           </td>
         </tr>
       </table>
-      <input type="reset" value="<?php echo translate('Reset') ?>" onclick="resetLog()"/>
+        <div class="grid-x align-right">
+            <input type="reset" class="button" value="<?php echo translate('Reset') ?>" onclick="resetLog()"/>
+        </div>
     </div>
     <form name="logForm" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
       <input type="hidden" name="view" value="<?php echo $view ?>"/>
