@@ -147,18 +147,39 @@ header .info-panel .menu li + li {
     font-size: 14px;
 }
 
-.thead-highlight {
-  background-color:#dfe4ea;
-}
-
-/* rounded table head top corners */
+/* Table styles */
 table th:first-child{
-  border-radius:5px 0 0 0 ;
-}
-table th:last-child{
-  border-radius:0 5px 0 0 ;
+    border-radius: 10px 0 0 0;
 }
 
+table th:last-child{
+    border-radius: 0 10px 0 0;
+}
+
+table thead td, table thead th {
+    padding: 0.2rem 0.4rem;
+}
+
+table a {
+    color: #000;
+}
+
+table a:hover {
+    color: #000;
+}
+
+#contentButtons {
+    margin-top: 1rem;
+}
+
+table + #contentButtons {
+    margin-top: 0;
+}
+
+/* #contentButtons input {
+    margin-left: 8px;
+    margin-bottom: 4px;
+} */
 
 /* label {
     margin: 0 4px;
