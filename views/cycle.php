@@ -71,9 +71,9 @@ xhtmlHeaders(__FILE__, translate('CycleWatch'));
             <?php echo $navbar = getNavBarHTML(); ?>
         </div>
     
-        <div class="cell auto">
-            <div id="header" class="grid-x">
-                <div id="headerButtons">
+        <div class="cell auto grid-y">
+            <div id="header" class="cell grid-x grid-padding-x">
+                <div id="headerButtons" class="cell shrink">
             <?php if ( $mode == 'stream' ) { ?>
                     <a href="?view=<?php echo $view ?>&amp;mode=still&amp;mid=<?php echo $monitor ? $monitor->Id() : '' ?>"><?php echo translate('Stills') ?></a>
             <?php } else { ?>
@@ -81,7 +81,7 @@ xhtmlHeaders(__FILE__, translate('CycleWatch'));
             <?php } ?>
                 </div>
 
-                <div class="controlHeader">
+                <div class="cell auto">
                     <form method="get">
                         <input type="hidden" name="view" value="cycle"/>
                         <?php echo $filterbar ?>
@@ -89,16 +89,14 @@ xhtmlHeaders(__FILE__, translate('CycleWatch'));
                 </div>
             </div>
 
-            <div id="content" class="grid-x align-middle align-center">
-                <div class="cell shrink">
-            <?php 
-                if ( $monitor ) {
-                    echo getStreamHTML($monitor, array('scale'=>$scale, 'mode'=>$mode, 'width'=>'auto'));
-                } else {
-                    echo "There are no monitors to view.";
-                }
-            ?>
-                </div>
+            <div id="content" class="cell auto text-center">
+                <?php 
+                    if ( $monitor ) {
+                        echo getStreamHTML($monitor, array('scale'=>$scale, 'mode'=>$mode, 'width'=>'auto'));
+                    } else {
+                        echo "There are no monitors to view.";
+                    }
+                ?>
             </div>
         </div>
     </div>
