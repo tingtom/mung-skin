@@ -154,4 +154,4 @@ function initPage () {
   }
 }
 
-$j(document).ready(initPage);
+$(document).ready(initPage);
