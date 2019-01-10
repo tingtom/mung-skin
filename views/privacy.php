@@ -34,41 +34,43 @@ $focusWindow = true;
 xhtmlHeaders(__FILE__, translate('Privacy') );
 ?>
 <body>
-  <div id="page">
-    <div id="header">
-      <h2><?php echo translate('Privacy') ?></h2>
-      <h1>ZoneMinder - <?php echo translate('Privacy') ?></h1>
-    </div>
-    <div id="content">
-      <form name="contentForm" id="contentForm" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+    <form name="contentForm" id="contentForm" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
         <input type="hidden" name="view" value="none"/>
         <input type="hidden" name="action" value="privacy"/>
-        <h6><?php echo translate('PrivacyAbout') ?></h6>
-        <p><?php echo translate('PrivacyAboutText') ?></p>
-        <br>
 
-        <h6><?php echo translate('PrivacyContact') ?></h6>
-        <p><?php echo translate('PrivacyContactText') ?></p>
-        <br>
+        <div id="page" class="grid-container">
+            <div id="header">
+                <!-- <h2><?php echo translate('Privacy') ?></h2> -->
+                <h1>ZoneMinder - <?php echo translate('Privacy') ?></h1>
+            </div>
 
-        <h6><?php echo translate('PrivacyCookies') ?></h6>
-        <p><?php echo translate('PrivacyCookiesText') ?></p>
-        <br>
+            <div class="grid-x align-center">
+                <div id="content" class="cell small-6">
+                    <h6><?php echo translate('PrivacyAbout') ?></h6>
+                    <p><?php echo translate('PrivacyAboutText') ?></p>
+                    <br>
 
-        <h6><?php echo translate('PrivacyTelemetry') ?></h6>
-        <p><?php echo translate('PrivacyTelemetryText') ?></p>
-        <br>
+                    <h6><?php echo translate('PrivacyContact') ?></h6>
+                    <p><?php echo translate('PrivacyContactText') ?></p>
+                    <br>
 
-        <p><?php echo translate('PrivacyTelemetryList') ?></p>
-        <p><?php echo translate('PrivacyMonitorList') ?></p>
-        <p><?php echo translate('PrivacyConclusionText') ?></p>
-        <p><?php echo buildSelect( "option", $options ); ?></p>
+                    <h6><?php echo translate('PrivacyCookies') ?></h6>
+                    <p><?php echo translate('PrivacyCookiesText') ?></p>
+                    <br>
 
-        <div id="contentButtons">
-          <input type="submit" value="<?php echo translate('Apply') ?>" onclick="submitForm( this )">
+                    <h6><?php echo translate('PrivacyTelemetry') ?></h6>
+                    <p><?php echo translate('PrivacyTelemetryText') ?></p>
+                    <br>
+
+                    <p><?php echo translate('PrivacyTelemetryList') ?></p>
+                    <p><?php echo translate('PrivacyMonitorList') ?></p>
+                    <p><?php echo translate('PrivacyConclusionText') ?></p>
+                    <p><?php echo buildSelect( "option", $options ); ?></p>
+
+                    <input type="submit" value="<?php echo translate('Apply') ?>" onclick="submitForm( this )" class="button">
+                </div>
+            </div>
         </div>
-      </form>
-    </div>
-  </div>
+    </form>
 </body>
 </html>
