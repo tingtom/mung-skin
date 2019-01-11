@@ -53,3 +53,7 @@ tr.log-dbg td {
 #filters {
     margin-bottom: 1rem;
 }
+
+.table-wrapper {
+    overflow: auto;
+}

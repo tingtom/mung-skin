@@ -84,65 +84,74 @@ xhtmlHeaders(__FILE__, translate('SystemLog') );
 	  </table>
 
   </div> <!--header-->
+
   <div id="content" class="grid-container">
     <div id="filters">
-      <table>
-        <tr class="row">
-          <td class="col">
-            <?php echo translate('Component') ?>
-            <select class="form-control chosen" id="filter[Component]" onchange="filterLog(this)"><option value="">-----</option></select>
-          </td>
-          <td class="col">
-            <?php echo translate('Server') ?>
-            <select class="form-control chosen" id="filter[ServerId]" onchange="filterLog(this)"><option value="">-----</option></select>
-          </td>
-          <td class="col">
-            <?php echo translate('Pid') ?>
-            <select class="form-control chosen" id="filter[Pid]" onchange="filterLog(this)"><option value="">-----</option></select>
-          </td>
-        </tr>
-        <tr class="row">
-          <td class="col">
-            <?php echo translate('Level') ?>
-            <select class="form-control chosen" id="filter[Level]" onchange="filterLog(this)"><option value="">---</option></select>
-          </td>
-          <td class="col">
-            <?php echo translate('File') ?>
-            <select class="form-control chosen" id="filter[File]" onchange="filterLog(this)"><option value="">------</option></select>
-          </td>
-          <td  class="col">
-            <?php echo translate('Line') ?>
-            <select class="form-control chosen" id="filter[Line]" onchange="filterLog(this)"><option value="">----</option></select>
-          </td>
-        </tr>
-      </table>
+        <table>
+            <tr class="row">
+                <td class="col">
+                    <?php echo translate('Component') ?>
+                    <select class="form-control chosen" id="filter-Component" onchange="filterLog(this)"><option value="">-----</option></select>
+                </td>
+                <td class="col">
+                    <?php echo translate('Server') ?>
+                    <select class="form-control chosen" id="filter-ServerId" onchange="filterLog(this)"><option value="">-----</option></select>
+                </td>
+                <td class="col">
+                    <?php echo translate('Pid') ?>
+                    <select class="form-control chosen" id="filter-Pid" onchange="filterLog(this)"><option value="">-----</option></select>
+                </td>
+            </tr>
+
+            <tr class="row">
+                <td class="col">
+                    <?php echo translate('Level') ?>
+                    <select class="form-control chosen" id="filter-Level" onchange="filterLog(this)"><option value="">---</option></select>
+                </td>
+
+                <td class="col">
+                    <?php echo translate('File') ?>
+                    <select class="form-control chosen" id="filter-File" onchange="filterLog(this)"><option value="">------</option></select>
+                </td>
+
+                <td class="col">
+                    <?php echo translate('Line') ?>
+                    <select class="form-control chosen" id="filter-Line" onchange="filterLog(this)"><option value="">----</option></select>
+                </td>
+            </tr>
+        </table>
+
         <div class="grid-x align-right">
             <input type="reset" class="button" value="<?php echo translate('Reset') ?>" onclick="resetLog()"/>
         </div>
     </div>
+
     <form name="logForm" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-      <input type="hidden" name="view" value="<?php echo $view ?>"/>
-      <table id="logTable" class="major">
-        <thead class="thead-highlight">
-          <tr>
-            <th><?php echo translate('DateTime') ?></th>
-            <th class="table-th-nosort"><?php echo translate('Component') ?></th>
-            <th class="table-th-nosort"><?php echo translate('Server') ?></th>
-            <th class="table-th-nosort"><?php echo translate('Pid') ?></th>
-            <th class="table-th-nosort"><?php echo translate('Level') ?></th>
-            <th class="table-th-nosort"><?php echo translate('Message') ?></th>
-            <th class="table-th-nosort"><?php echo translate('File') ?></th>
-            <th class="table-th-nosort"><?php echo translate('Line') ?></th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-      <div id="contentButtons">
-      </div>
+        <input type="hidden" name="view" value="<?php echo $view ?>"/>
+        
+        <div class="table-wrapper">
+            <table id="logTable" class="major">
+                <thead class="thead-highlight">
+                    <tr>
+                        <th><?php echo translate('DateTime') ?></th>
+                        <th class="table-th-nosort"><?php echo translate('Component') ?></th>
+                        <th class="table-th-nosort"><?php echo translate('Server') ?></th>
+                        <th class="table-th-nosort"><?php echo translate('Pid') ?></th>
+                        <th class="table-th-nosort"><?php echo translate('Level') ?></th>
+                        <th class="table-th-nosort"><?php echo translate('Message') ?></th>
+                        <th class="table-th-nosort"><?php echo translate('File') ?></th>
+                        <th class="table-th-nosort"><?php echo translate('Line') ?></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </form>
   </div>
 </div>
+
   <div id="exportLog" class="overlay">
     <div class="overlayHeader">
       <div class="overlayTitle"><?php echo translate('ExportLog') ?></div>

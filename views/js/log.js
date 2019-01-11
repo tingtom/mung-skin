@@ -46,152 +46,162 @@ function fetchPrevLogs() {
 }
 
 function logResponse( respObj ) {
-  if ( logTimer )
-    logTimer = clearTimeout( logTimer );
+    if ( logTimer )
+        logTimer = clearTimeout( logTimer );
 
-  if ( respObj.result == 'Ok' ) {
-    if ( respObj.logs.length > 0 ) {
-      logTimeout = minSampleTime;
-      logCount += respObj.logs.length;
-      try {
-        respObj.logs.each(
-            function( log ) {
-              if ( ( !maxLogTime ) || ( log.TimeKey > maxLogTime ) )
-                maxLogTime = log.TimeKey;
-              if ( ( !minLogTime ) || ( log.TimeKey < minLogTime ) )
-                minLogTime = log.TimeKey;
-              var row = logTable.push( [{ content: log.DateTime, properties: { style: 'white-space: nowrap' }}, log.Component, log.Server, log.Pid, log.Code, log.Message, log.File, log.Line] );
-              
-              delete log.Message;
-              row.tr.store( 'log', log );
-              if ( log.Level <= -3 )
-              row.tr.addClass( 'log-fat' );
-              else if ( log.Level <= -2 )
-              row.tr.addClass( 'log-err' );
-              else if ( log.Level <= -1 )
-              row.tr.addClass( 'log-war' );
-              else if ( log.Level > 0 )
-              row.tr.addClass( 'log-dbg' );
-              if ( !firstLoad ) {
-                var color = document.defaultView.getComputedStyle(row.tr, null).getPropertyValue('color');
-                var colorParts = color.match(/^rgb.*\((\d+),\s*(\d+),\s*(\d+)/);
-                if(colorParts)
-                    rowOrigColor = '#' + parseInt(colorParts[1]).toString(16) + parseInt(colorParts[2]).toString(16) + parseInt(colorParts[3]).toString(16);
-                //new Fx.Tween( row.tr, { duration: 10000, transition: Fx.Transitions.Sine } ).start( 'color', '#6495ED', rowOrigColor );
-              }
+    if ( respObj.result == 'Ok' ) {
+        if ( respObj.logs.length > 0 ) {
+            logTimeout = minSampleTime;
+            logCount += respObj.logs.length;
+        try {
+            respObj.logs.each(function( log ) {
+                if ( ( !maxLogTime ) || ( log.TimeKey > maxLogTime ) )
+                    maxLogTime = log.TimeKey;
+                if ( ( !minLogTime ) || ( log.TimeKey < minLogTime ) )
+                    minLogTime = log.TimeKey;
+
+                var row = logTable.push( [{ content: log.DateTime, properties: { style: 'white-space: nowrap' }}, log.Component, log.Server, log.Pid, log.Code, log.Message, log.File, log.Line] );
+                
+                delete log.Message;
+                row.tr.store( 'log', log );
+                
+                if ( log.Level <= -3 )
+                    row.tr.addClass( 'log-fat' );
+                else if ( log.Level <= -2 )
+                    row.tr.addClass( 'log-err' );
+                else if ( log.Level <= -1 )
+                    row.tr.addClass( 'log-war' );
+                else if ( log.Level > 0 )
+                    row.tr.addClass( 'log-dbg' );
+
+                if ( !firstLoad ) {
+                    var color = document.defaultView.getComputedStyle(row.tr, null).getPropertyValue('color');
+                    var colorParts = color.match(/^rgb.*\((\d+),\s*(\d+),\s*(\d+)/);
+                    if(colorParts)
+                        rowOrigColor = '#' + parseInt(colorParts[1]).toString(16) + parseInt(colorParts[2]).toString(16) + parseInt(colorParts[3]).toString(16);
+                    //new Fx.Tween( row.tr, { duration: 10000, transition: Fx.Transitions.Sine } ).start( 'color', '#6495ED', rowOrigColor );
+                }
+            });
+
+            if ( typeof(respObj.options) == 'object' ) {
+                $.each(respObj.options, function( field ) {
+                    if ( options[field] )
+                        options[field] = Object.assign(options[field], respObj.options[field]);
+                    else
+                        options[field] = respObj.options[field];
+                });
             }
-        );
-        if ( typeof(respObj.options) == 'object' ) {
-          $(respObj.options).each(function( field ) {
-              if ( options[field] )
-                options[field] = Object.assign(options[field], respObj.options[field]);
-              else
-                options[field] = respObj.options[field];
+
+            updateFilterSelectors();
+
+            $('#lastUpdate').text(respObj.updated);
+            $('#logState').text(respObj.state);
+            $('#logState').removeClass('ok');
+            $('#logState').removeClass('alert');
+            $('#logState').removeClass('alarm');
+            $('#logState').addClass(respObj.state);
+            $('#totalLogs').text(respObj.total);
+            $('#availLogs').text(respObj.available);
+
+            $('#displayLogs').text(logCount);
+
+            if ( firstLoad ) {
+                if ( logCount < displayLimit )
+                    fetchPrevLogs();
             }
-          );
+
+            logTable.reSort();
+        } catch( e ) {
+            console.error( e );
         }
-        updateFilterSelectors();
-        $('#lastUpdate').text(respObj.updated);
-        $('#logState').text(respObj.state);
-        $('#logState').removeClass('ok');
-        $('#logState').removeClass('alert');
-        $('#logState').removeClass('alarm');
-        $('#logState').addClass(respObj.state);
-        $('#totalLogs').text(respObj.total);
-        $('#availLogs').text(respObj.available);
-        $('#displayLogs').text(logCount);
-        if ( firstLoad ) {
-          if ( logCount < displayLimit )
-            fetchPrevLogs();
-        }
-        logTable.reSort();
-      } catch( e ) {
-        console.error( e );
-      }
-      logTimeout /= 2;
-      if ( logTimeout < minSampleTime )
-        logTimeout = minSampleTime;
-    } else {
-      firstLoad = false;
-      logTimeout *= 2;
-      if ( logTimeout > maxSampleTime )
-        logTimeout = maxSampleTime;
-    } // end logs.length > 0
-  } // end if result == Ok
-  logTimer = fetchNextLogs.delay( logTimeout );
+
+        logTimeout /= 2;
+
+        if ( logTimeout < minSampleTime )
+            logTimeout = minSampleTime;
+        } else {
+            firstLoad = false;
+            logTimeout *= 2;
+
+            if ( logTimeout > maxSampleTime )
+                logTimeout = maxSampleTime;
+        } // end logs.length > 0
+    } // end if result == Ok
+
+    logTimer = fetchNextLogs.delay( logTimeout );
 }
 
 function refreshLog() {
-  options = {};
-  logTable.empty();
-  firstLoad = true;
-  maxLogTime = 0;
-  minLogTime = 0;
-  logCount = 0;
-  logTimeout = maxSampleTime;
-  displayLimit = initialDisplayLimit;
-  fetchNextLogs();
+    options = {};
+    logTable.empty();
+    firstLoad = true;
+    maxLogTime = 0;
+    minLogTime = 0;
+    logCount = 0;
+    logTimeout = maxSampleTime;
+    displayLimit = initialDisplayLimit;
+    fetchNextLogs();
 }
 
 function expandLog() {
-  displayLimit += maxLogFetch;
-  fetchPrevLogs();
+    displayLimit += maxLogFetch;
+    fetchPrevLogs();
 }
 
 function clearLog() {
-  logReq.cancel();
-  minLogTime = 0;
-  logCount = 0;
-  logTimeout = maxSampleTime;
-  displayLimit = initialDisplayLimit;
-  $('#displayLogs').text(logCount);
-  options = {};
-  logTable.empty();
+    logReq.cancel();
+    minLogTime = 0;
+    logCount = 0;
+    logTimeout = maxSampleTime;
+    displayLimit = initialDisplayLimit;
+    $('#displayLogs').text(logCount);
+    options = {};
+    logTable.empty();
 }
 
 function filterLog() {
-  filter = {};
-  filterFields.each(
-      function( field ) {
-        var selector = $("#filter[" + field + "]");
-        if ( ! selector ) {
-          if ( window.console && window.console.log ) {
-            window.console.log("No selector found for " + field );
-          }
-          return;
+    filter = {};
+    filterFields.each(function( field ) {
+        var selector = $("#filter-" + field);
+        if ( !selector ) {
+            if ( window.console && window.console.log ) {
+                window.console.log("No selector found for " + field );
+            }
+            return;
         }
-        var value = selector.get('value');
+
+        var value = selector.val();
         if ( value )
-          filter[field] = value;
-      }
-      );
-  refreshLog();
+            filter[field] = value;
+    });
+
+    refreshLog();
 }
 
 function resetLog() {
-  filter = {};
-  refreshLog();
+    filter = {};
+    refreshLog();
 }
 
 var exportFormValidator;
 
 function exportLog() {
-  exportFormValidator.reset();
-  $('exportLog').overlayShow();
+    exportFormValidator.reset();
+    $('exportLog').overlayShow();
 }
 
 function exportResponse( response ) {
-  $('exportLog').unspin();
-  if ( response.result == 'Ok' ) {
-    window.location.replace( thisUrl+'?view=request&request=log&task=download&key='+response.key+'&format='+response.format );
-  }
+    $('exportLog').unspin();
+    if ( response.result == 'Ok' ) {
+        window.location.replace( thisUrl+'?view=request&request=log&task=download&key='+response.key+'&format='+response.format );
+    }
 }
 
 function exportFail( request ) {
-  $('#exportLog').unspin();
-  $('#exportErrorText').set('text', request.status+" / "+request.statusText );
-  $('#exportError').show();
-  Error( "Export request failed: "+request.status+" / "+request.statusText );
+    $('#exportLog').unspin();
+    $('#exportErrorText').set('text', request.status+" / "+request.statusText );
+    $('#exportError').show();
+    Error( "Export request failed: "+request.status+" / "+request.statusText );
 }
 
 function exportRequest() {
@@ -225,78 +235,83 @@ function exportRequest() {
 }
 
 function updateFilterSelectors() {
-  Object.each(options,
-    function( values, key ) {
-      var selector = $('#filter['+key+']');
-      if ( selector.length <= 0 ) {
-        if ( window.console && window.console.log ) {
-          window.console.log("No selector found for " + key );
+    Object.each(options, function( values, key ) {
+        var selector = $('#filter-'+key+'')[0];
+        
+        if ( selector.length <= 0 ) {
+            if ( window.console && window.console.log ) {
+                window.console.log("No selector found for " + key );
+            }
+            return;
         }
-        return;
-      }
-      selector.options.length = 1;
-      if ( key == 'Level' ) {
-        Object.each(values,
-          function( value, label ) {
-            selector.options[selector.options.length] = new Option(value, label);
-          }
-        );
-      } else if ( key == 'ServerId' ) {
-        Object.each(values,
-          function( value, label ) {
-            selector.options[selector.options.length] = new Option(value, label);
-          }
-        );
-      } else {
-        Object.each(values,
-          function( value, label ) {
-            selector.options[selector.options.length] = new Option(value, label);
-          }
-        );
-      }
-      if ( filter[key] )
-        selector.set('value', filter[key]);
 
-    }
-  );
+        selector.options.length = 1;
+        
+        if ( key == 'Level' ) {
+            Object.each(values,
+                function( value, label ) {
+                    selector.options[selector.options.length] = new Option(value, label);
+                }
+            );
+        } else if ( key == 'ServerId' ) {
+            Object.each(values,
+                function( value, label ) {
+                    selector.options[selector.options.length] = new Option(value, label);
+                }
+            );
+        } else {
+            Object.each(values,
+                function( value, label ) {
+                    selector.options[selector.options.length] = new Option(value, label);
+                }
+            );
+        }
+
+        if ( filter[key] )
+            $(selector).val(filter[key]);
+    });
 }
 
 $(document).ready(function() {
-  displayLimit = initialDisplayLimit;
-  for ( var i = 1; i <= 9; i++ )
-    logCodes[''+i] = 'DB'+i;
-  logTable = new HtmlTable( $("#logTable"),
-      {
+    displayLimit = initialDisplayLimit;
+    for ( var i = 1; i <= 9; i++ )
+        logCodes[''+i] = 'DB'+i;
+
+    logTable = new HtmlTable( $("#logTable")[0], {
         zebra: true,
         sortable: true,
         sortReverse: true
-      }
-      );
-  logTable.addEvent( 'sort', function( tbody, index ) {
-      var header = tbody.getParent( 'table' ).getElement( 'thead' );
-      var columns = header.getElement( 'tr' ).getElements( 'th' );
-      var column = columns[index];
-      sortReversed = column.hasClass( 'table-th-sort-rev' );
-      if ( logCount > displayLimit ) {
-        var rows = tbody.getElements( 'tr' );
-        var startIndex;
-        if ( sortReversed )
-          startIndex = displayLimit;
-        else
-          startIndex = 0;
-        for ( var i = startIndex; logCount > displayLimit; i++ ) {
-          rows[i].destroy();
-          logCount--;
-        }
-        $("#displayLogs").set('text', logCount);
-      } // end if loCount > displayLimit
-    }
-  );
-  exportFormValidator = new Form.Validator.Inline($("#exportForm")[0], {
-    useTitles: true,
-    warningPrefix: "",
-    errorPrefix: ""
-  });
-  new Asset.css( "css/spinner.css" );
-  fetchNextLogs();
+    });
+    
+    logTable.addEvent( 'sort', function( tbody, index ) {
+        var header = tbody.getParent( 'table' ).getElement( 'thead' );
+        var columns = header.getElement( 'tr' ).getElements( 'th' );
+        var column = columns[index];
+        sortReversed = column.hasClass( 'table-th-sort-rev' );
+
+        if ( logCount > displayLimit ) {
+            var rows = tbody.getElements( 'tr' );
+
+            var startIndex;
+            if ( sortReversed )
+                startIndex = displayLimit;
+            else
+                startIndex = 0;
+
+            for ( var i = startIndex; logCount > displayLimit; i++ ) {
+                rows[i].destroy();
+                logCount--;
+            }
+            $("#displayLogs").set('text', logCount);
+        } // end if loCount > displayLimit
+    });
+
+    exportFormValidator = new Form.Validator.Inline($("#exportForm")[0], {
+        useTitles: true,
+        warningPrefix: "",
+        errorPrefix: ""
+    });
+
+    new Asset.css( "css/spinner.css" );
+    fetchNextLogs();
 });
