@@ -410,7 +410,8 @@ function xhtmlFooter() {
 
 function getNewPagination( $pages, $page, $maxShortcuts, $query, $querySep='&amp;' ) {
     global $view;
-    $pageText = '';
+    $pageText = '<ul class="pagination">';
+
     if ( $pages > 1 ) {
       if ( $page ) {
         if ( $page < 0 )
@@ -418,7 +419,7 @@ function getNewPagination( $pages, $page, $maxShortcuts, $query, $querySep='&amp
         if ( $page > $pages )
           $page = $pages;
         if ( $page > 1 ) {
-          $pageText .= '<a href="?view='.$view.$querySep.'page='.($page-1).$query.'"><i class="glyphicon glyphicon-chevron-left"></i></a>';
+          $pageText .= '<li><a href="?view='.$view.$querySep.'page='.($page-1).$query.'"><i class="fa fa-chevron-left"></i></a></li>';
           $newPages = array();
           $pagesUsed = array();
           $lo_exp = max(2,log($page-1)/log($maxShortcuts));
@@ -436,8 +437,10 @@ function getNewPagination( $pages, $page, $maxShortcuts, $query, $querySep='&amp
           foreach ( $newPages as $newPage ) {
             $pageText .= '<a href="?view='.$view.$querySep.'page='.$newPage.$query.'">'.$newPage.'</a>';
           }
+        } else {
+          $pageText .= '<li class="pagination-previous disabled"></li>';
         }
-        $pageText .= "<span class='current'>".$page."</span>";
+        $pageText .= "<li class='current'>".$page."</li>";
         if ( $page < $pages ) {
           $newPages = array();
           $pagesUsed = array();
@@ -454,12 +457,12 @@ function getNewPagination( $pages, $page, $maxShortcuts, $query, $querySep='&amp
           if ( !isset($pagesUsed[$pages]) )
             array_push( $newPages, $pages );
           foreach ( $newPages as $newPage ) {
-            $pageText .= '<a href="?view='.$view.$querySep.'page='.$newPage.$query.'">'.$newPage.'</a>';
+            $pageText .= '<li><a href="?view='.$view.$querySep.'page='.$newPage.$query.'">'.$newPage.'</a></li>';
           }
-          $pageText .= '<a href="?view='.$view.$querySep.'page='.($page+1).$query.'"><i class="glyphicon glyphicon-chevron-right"></i></a>';
+          $pageText .= '<li class="pagination-next"><a href="?view='.$view.$querySep.'page='.($page+1).$query.'"></a></li>';
         }
       }
     }
-    return( $pageText );
+    return( $pageText."</ul>" );
   }
 ?>
