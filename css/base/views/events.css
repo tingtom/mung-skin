@@ -16,14 +16,15 @@
 }
 
 #header {
-    display: flex;
-    justify-content: space-between;
+/*    display: flex;
+    justify-content: space-between; */
+
 }
 
-#header h2 {
+/* #header h2 {
     line-height: 1.1;
     margin: 5px 0;
-}
+} */
 
 #header #info, #pagination, #header #controls {
     display: flex;
@@ -34,7 +35,16 @@
     align-items: flex-end;
 }
 
-#pagination {
+#pagination .pagination {
+    margin-bottom: 0;
+}
+
+#pagination nav + a {
+    margin-top: 0.5rem;
+    color: #2c3e50;
+}
+
+/* #pagination {
     align-items: center;
 }
 
@@ -45,4 +55,4 @@
     #pagination span.current {
         text-decoration: underline;
         padding-bottom: 1px;
-    }
+    } */

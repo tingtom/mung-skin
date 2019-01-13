@@ -95,47 +95,46 @@ xhtmlHeaders(__FILE__, translate('Events') );
 <body>
   <div id="page">
     <?php echo getNavBarHTML() ?>
-    <div id="header">
-      <div id="info">
-        <h2><?php echo sprintf($CLANG['EventCount'], $nEvents, zmVlang($VLANG['Event'], $nEvents)) ?></h2>
-        <a id="refreshLink" href="#" onclick="location.reload(true);"><?php echo translate('Refresh') ?></a>
-      </div>
-      <div id="pagination">
-<?php
-if ( $pagination ) {
-?>
-        <h2 class="pagination"><?php echo $pagination ?></h2>
-<?php
-}
-?>
-<?php
-if ( $pages > 1 ) {
-  if ( !empty($page) ) {
-?>
-        <a href="?view=<?php echo $view ?>&amp;page=0<?php echo $filterQuery ?><?php echo $sortQuery.$limitQuery ?>"><?php echo translate('ViewAll') ?></a>
-<?php
-  } else {
-?>
-        <a href="?view=<?php echo $view ?>&amp;page=1<?php echo $filterQuery ?><?php echo $sortQuery.$limitQuery ?>"><?php echo translate('ViewPaged') ?></a>
-<?php
-  }
-}
-?>
-      </div>
-      <div id="controls">
-        <a href="#" onclick="window.history.back();return false;"><?php echo translate('Back') ?></a>
-        <a id="timelineLink" href="?view=timeline<?php echo $filterQuery ?>"><?php echo translate('ShowTimeline') ?></a>
-      </div>
+
+    <div id="header" class="grid-container filter-wrapper full grid-x grid-padding-x align-middle">
+        <div id="info" class="cell auto">
+            <h2><?php echo sprintf($CLANG['EventCount'], $nEvents, zmVlang($VLANG['Event'], $nEvents)) ?></h2>
+            
+            <a id="refreshLink" href="#" onclick="location.reload(true);"><?php echo translate('Refresh') ?></a>
+        </div>
+
+        <div id="pagination" class="cell auto text-center">
+
+<?php if ( $pagination ) { ?>
+            <nav aria-label="Pagination"><?php echo $pagination ?></nav>
+<?php } ?>
+
+<?php if ( $pages > 1 ) { if ( !empty($page) ) { ?>
+            <a href="?view=<?php echo $view ?>&amp;page=0<?php echo $filterQuery ?><?php echo $sortQuery.$limitQuery ?>"><?php echo translate('ViewAll') ?></a>
+<?php } else { ?>
+            <a href="?view=<?php echo $view ?>&amp;page=1<?php echo $filterQuery ?><?php echo $sortQuery.$limitQuery ?>"><?php echo translate('ViewPaged') ?></a>
+<?php }} ?>
+        </div>
+
+        <div id="controls" class="cell auto">
+            <a href="#" onclick="window.history.back();return false;"><?php echo translate('Back') ?></a>
+            <a id="timelineLink" href="?view=timeline<?php echo $filterQuery ?>"><?php echo translate('ShowTimeline') ?></a>
+        </div>
     </div>
-    <div id="content">
-      <form name="contentForm" id="contentForm" method="post" action="">
-        <input type="hidden" name="view" value="<?php echo $view ?>"/>
-        <input type="hidden" name="action" value=""/>
-        <input type="hidden" name="page" value="<?php echo $page ?>"/>
-        <?php echo $_REQUEST['filter']['fields'] ?>
-        <input type="hidden" name="sort_field" value="<?php echo validHtmlStr($_REQUEST['sort_field']) ?>"/>
-        <input type="hidden" name="sort_asc" value="<?php echo validHtmlStr($_REQUEST['sort_asc']) ?>"/>
-        <input type="hidden" name="limit" value="<?php echo $limit ?>"/>
+
+    <div id="content" class="grid-container full">
+        <div class="grid-x">
+        <div class="cell">
+        
+            <form name="contentForm" id="contentForm" method="post" action="">
+                <input type="hidden" name="view" value="<?php echo $view ?>"/>
+                <input type="hidden" name="action" value=""/>
+                <input type="hidden" name="page" value="<?php echo $page ?>"/>
+                <?php echo $_REQUEST['filter']['fields'] ?>
+                <input type="hidden" name="sort_field" value="<?php echo validHtmlStr($_REQUEST['sort_field']) ?>"/>
+                <input type="hidden" name="sort_asc" value="<?php echo validHtmlStr($_REQUEST['sort_asc']) ?>"/>
+                <input type="hidden" name="limit" value="<?php echo $limit ?>"/>
+
         <table id="contentTable" class="major">
           <tbody>
 <?php
@@ -263,15 +262,11 @@ while ( $event_row = dbFetchNext($results) ) {
   }
 ?>
         </table>
-<?php
-if ( $pagination ) {
-?>
+<?php if ( $pagination ) { ?>
     <div id="pagination">
-        <h3 class="pagination"><?php echo $pagination ?></h3>
+        <nav class="pagination"><?php echo $pagination ?></nav>
     </div>
-<?php
-}
-?>
+<?php } ?>
         <div id="contentButtons">
           <button type="button" name="viewBtn" value="View" onclick="viewEvents(this, 'markEids');" disabled="disabled">
           <?php echo translate('View') ?>
@@ -297,12 +292,15 @@ if ( $pagination ) {
         </div>
         <div class="clear"></div>
       </form>
+            </div>
+            </div>
+        </div>
     </div>
-  </div>
-<script type="text/javascript">
-  // These are defined in the .js.php but need to be updated down here.
-  archivedEvents = <?php echo !empty($archived)?'true':'false' ?>;
-  unarchivedEvents = <?php echo !empty($unarchived)?'true':'false' ?>;
-</script>
+
+    <script type="text/javascript">
+        // These are defined in the .js.php but need to be updated down here.
+        archivedEvents = <?php echo !empty($archived)?'true':'false' ?>;
+        unarchivedEvents = <?php echo !empty($unarchived)?'true':'false' ?>;
+    </script>
 </body>
 </html>
