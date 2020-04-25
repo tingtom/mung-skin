@@ -123,7 +123,7 @@ xhtmlHeaders(__FILE__, translate('Events') );
     </div>
 
     <div id="content" class="grid-container full">
-        <div class="grid-x">
+        <div class="grid-x grid-padding-x">
         <div class="cell">
         
             <form name="contentForm" id="contentForm" method="post" action="">
@@ -262,35 +262,43 @@ while ( $event_row = dbFetchNext($results) ) {
   }
 ?>
         </table>
+
+        <div class="grid-container">
+            <div class="grid-x">
+
 <?php if ( $pagination ) { ?>
-    <div id="pagination">
-        <nav class="pagination"><?php echo $pagination ?></nav>
-    </div>
-<?php } ?>
-        <div id="contentButtons">
-          <button type="button" name="viewBtn" value="View" onclick="viewEvents(this, 'markEids');" disabled="disabled">
-          <?php echo translate('View') ?>
-          </button>
-          <button type="button" name="archiveBtn" value="Archive" onclick="archiveEvents(this, 'markEids')" disabled="disabled">
-          <?php echo translate('Archive') ?>
-          </button>
-          <button type="button" name="unarchiveBtn" value="Unarchive" onclick="unarchiveEvents(this, 'markEids');" disabled="disabled">
-          <?php echo translate('Unarchive') ?>
-          </button>
-          <button type="button" name="editBtn" value="Edit" onclick="editEvents(this, 'markEids')" disabled="disabled">
-          <?php echo translate('Edit') ?>
-          </button>
-          <button type="button" name="exportBtn" value="Export" onclick="exportEvents(this, 'markEids')" disabled="disabled">
-          <?php echo translate('Export') ?>
-          </button>
-          <button type="button" name="downloadBtn" value="DownloadVideo" onclick="downloadVideo(this, 'markEids')" disabled="disabled">
-          <?php echo translate('DownloadVideo') ?>
-          </button>
-          <button type="button" name="deleteBtn" value="Delete" onclick="deleteEvents(this, 'markEids');" disabled="disabled">
-          <?php echo translate('Delete') ?>
-          </button>
+                <div id="pagination" class="cell shrink">
+                    <nav class="pagination"><?php echo $pagination ?></nav>
+                </div>
+<?php } ?>    
+
+                <div class="cell shrink">
+                    <div id="contentButtons">
+                        <button type="button" name="viewBtn" value="View" onclick="viewEvents(this, 'markEids');" disabled="disabled">
+                        <?php echo translate('View') ?>
+                        </button>
+                        <button type="button" name="archiveBtn" value="Archive" onclick="archiveEvents(this, 'markEids')" disabled="disabled">
+                        <?php echo translate('Archive') ?>
+                        </button>
+                        <button type="button" name="unarchiveBtn" value="Unarchive" onclick="unarchiveEvents(this, 'markEids');" disabled="disabled">
+                        <?php echo translate('Unarchive') ?>
+                        </button>
+                        <button type="button" name="editBtn" value="Edit" onclick="editEvents(this, 'markEids')" disabled="disabled">
+                        <?php echo translate('Edit') ?>
+                        </button>
+                        <button type="button" name="exportBtn" value="Export" onclick="exportEvents(this, 'markEids')" disabled="disabled">
+                        <?php echo translate('Export') ?>
+                        </button>
+                        <button type="button" name="downloadBtn" value="DownloadVideo" onclick="downloadVideo(this, 'markEids')" disabled="disabled">
+                        <?php echo translate('DownloadVideo') ?>
+                        </button>
+                        <button type="button" name="deleteBtn" value="Delete" onclick="deleteEvents(this, 'markEids');" disabled="disabled">
+                        <?php echo translate('Delete') ?>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="clear"></div>
       </form>
             </div>
             </div>
